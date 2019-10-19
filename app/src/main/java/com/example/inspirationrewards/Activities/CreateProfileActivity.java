@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -58,6 +59,13 @@ public class CreateProfileActivity extends AppCompatActivity {
     }
 
     public void picClicked(View v){
+        if (ActivityCompat.checkSelfPermission(CreateProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(CreateProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_IMAGE_GALLERY);
+
+        }
+        if (ActivityCompat.checkSelfPermission(CreateProfileActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(CreateProfileActivity.this, new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
+        }
         createPictureDialog();
 //        PermissionDialog dialog = new PermissionDialog();
 //        dialog.show(getSupportFragmentManager(), "Permission Dialog");
@@ -155,14 +163,25 @@ public class CreateProfileActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            try {
-//                processCamera();
-//            } catch (Exception e) {
-//                Toast.makeText(this, "onActivityResult: " + e.getMessage(), Toast.LENGTH_LONG).show();
-//                e.printStackTrace();
-//            }
+            try {
+                processCamera();
+            } catch (Exception e) {
+                Toast.makeText(this, "onActivityResult: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
         }
     }
+
+    private void processCamera() {
+        Uri selectedImage = Uri.fromFile(currentImageFile);
+        imageView.setImageURI(selectedImage);
+        Bitmap bm = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+//        makeCustomToast(this,
+//                String.format(Locale.getDefault(),
+//                        "Camera Image Size:%n%,d bytes", bm.getByteCount()),
+//                Toast.LENGTH_LONG);
+    }
+
 
     private void processGallery(Intent data) {
         Uri galleryImageUri = data.getData();
