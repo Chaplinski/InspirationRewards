@@ -20,7 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void goProfileCreate(View v){
-        Toast.makeText(this, "do it!", Toast.LENGTH_SHORT).show();
         Intent intentCreateProfile = new Intent(LoginActivity.this, CreateProfileActivity.class);
         startActivity(intentCreateProfile);
     }
