@@ -1,11 +1,13 @@
-package com.example.inspirationrewards;
+package com.example.inspirationrewards.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
 
-public class CreateProfile extends AppCompatActivity {
+import com.example.inspirationrewards.R;
+
+public class CreateProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

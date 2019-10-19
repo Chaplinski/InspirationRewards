@@ -1,8 +1,10 @@
-package com.example.inspirationrewards;
+package com.example.inspirationrewards.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.inspirationrewards.R;
 
 public class LoginActivity extends AppCompatActivity {
 
