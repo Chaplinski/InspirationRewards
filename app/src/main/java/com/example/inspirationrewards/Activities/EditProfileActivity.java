@@ -15,6 +15,8 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_with_logo);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Edit Profile");
+
     }
 
     @Override

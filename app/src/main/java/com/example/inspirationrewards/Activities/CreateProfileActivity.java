@@ -15,6 +15,8 @@ public class CreateProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_profile);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_with_logo);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Create Profile");
+
     }
 
     @Override
