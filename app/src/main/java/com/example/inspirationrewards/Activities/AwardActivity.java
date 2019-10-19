@@ -1,9 +1,11 @@
-package com.example.inspirationrewards;
+package com.example.inspirationrewards.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
+
+import com.example.inspirationrewards.R;
 
 public class AwardActivity extends AppCompatActivity {
 

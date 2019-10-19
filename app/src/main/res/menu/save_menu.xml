@@ -5,7 +5,7 @@
 
 
     <item
-        android:id="@+id/menuCreateANote"
+        android:id="@+id/menuSave"
         android:icon="@android:drawable/ic_menu_save"
         android:title="Do A"
         app:showAsAction="always" />
