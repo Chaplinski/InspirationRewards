@@ -7,12 +7,12 @@ import android.view.Menu;
 
 import com.example.inspirationrewards.R;
 
-public class CreateProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_profile);
+        setContentView(R.layout.activity_edit_profile);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_with_logo);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
