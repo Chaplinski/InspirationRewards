@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.inspirationrewards.AsyncTasks.CreateProfileAPIAsyncTask;
@@ -90,7 +91,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         String sLastName = lastName.getText().toString();
         String sDepartment = department.getText().toString();
         String sPosition = position.getText().toString();
-        String sAboutUser = aboutUser.getText().toString();
+        String sStory = aboutUser.getText().toString();
         boolean bIsAdmin = isAdmin.isChecked();
 
 
@@ -100,7 +101,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         user.setLastName(sLastName);
         user.setDepartment(sDepartment);
         user.setPosition(sPosition);
-        user.setAboutUser(sAboutUser);
+        user.setStory(sStory);
         user.setAdmin(bIsAdmin);
     }
 
@@ -301,5 +302,10 @@ public class CreateProfileActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void sendResults(String s) {
+//        ((TextView) findViewById(R.id.resultsText)).setText(s);
+        Log.d(TAG, "sendResults: " + s);
     }
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Rewards</string>
+    <string name="base_url">http://inspirationrewardsapi-env.6mmagpm2pv.us-east-2.elasticbeanstalk.com</string>
+
 </resources>

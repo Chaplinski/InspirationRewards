@@ -11,7 +11,7 @@ public class User {
     private String sLastName;
     private String sDepartment;
     private String sPosition;
-    private String sAboutUser;
+    private String sStory;
     private boolean bIsAdmin;
     //possibly be adding a variable for number of points a user has been awarded so far
     // and a String for location
@@ -45,9 +45,9 @@ public class User {
 
     public void setPosition(String newPosition){ this.sPosition = newPosition; }
 
-    public String getAboutUser(){ return sAboutUser; }
+    public String getStory(){ return sStory; }
 
-    public void setAboutUser(String newAbout){ this.sAboutUser = newAbout; }
+    public void setStory(String newStory){ this.sStory = newStory; }
 
     public boolean getAdmin(){ return bIsAdmin; }
 
