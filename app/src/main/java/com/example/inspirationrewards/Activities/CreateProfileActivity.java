@@ -17,12 +17,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.inspirationrewards.Classes.User;
 import com.example.inspirationrewards.Dialogs.GeneralDialog;
 import com.example.inspirationrewards.Dialogs.PermissionDialog;
 import com.example.inspirationrewards.R;
@@ -37,12 +43,20 @@ import static android.graphics.Color.GREEN;
 
 public class CreateProfileActivity extends AppCompatActivity {
 
+    private String TAG = "MainActivity";
     private static final int REQUEST_IMAGE_GALLERY = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
-    private ImageView selectAPhoto;
     private ImageView imageView;
-    private Uri imageUri;
     private File currentImageFile;
+    private Base64 imageToSave;
+    private EditText username;
+    private EditText password;
+    private EditText firstName;
+    private EditText lastName;
+    private EditText department;
+    private EditText position;
+    private EditText aboutUser;
+    private CheckBox isAdmin;
 
 
 
@@ -54,7 +68,37 @@ public class CreateProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Create Profile");
         imageView = findViewById(R.id.imageView);
+        username = findViewById(R.id.etUserName);
+        password = findViewById(R.id.etPassword);
+        firstName = findViewById(R.id.etFirstName);
+        lastName = findViewById(R.id.etLastName);
+        department = findViewById(R.id.etDepartment);
+        position = findViewById(R.id.etPosition);
+        aboutUser = findViewById(R.id.etAboutUser);
+        isAdmin = findViewById(R.id.cbIsAdmin);
 
+
+    }
+
+    private void saveUser(){
+        String sUserName = username.getText().toString();
+        String sPassword = password.getText().toString();
+        String sFirstName = firstName.getText().toString();
+        String sLastName = lastName.getText().toString();
+        String sDepartment = department.getText().toString();
+        String sPosition = position.getText().toString();
+        String sAboutUser = aboutUser.getText().toString();
+        boolean bIsAdmin = isAdmin.isChecked();
+
+        User user = new User();
+        user.setUserName(sUserName);
+        user.setPassword(sPassword);
+        user.setFirstName(sFirstName);
+        user.setLastName(sLastName);
+        user.setDepartment(sDepartment);
+        user.setPosition(sPosition);
+        user.setAboutUser(sAboutUser);
+        user.setAdmin(bIsAdmin);
 
     }
 
@@ -231,8 +275,27 @@ public class CreateProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuSave:
-                GeneralDialog dialog = new GeneralDialog();
-                dialog.show(getSupportFragmentManager(), "Save Dialog");
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Save Changes?");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing but close the dialog
+                        saveUser();
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing but close the dialog
+
+                    }
+                });
+
+                builder.setIcon(R.drawable.logo);
+                AlertDialog alert = builder.create();
+                alert.show();
             default:
                 return super.onOptionsItemSelected(item);
         }
