@@ -13,6 +13,9 @@ public class User {
     private String sPosition;
     private String sAboutUser;
     private boolean bIsAdmin;
+    //possibly be adding a variable for number of points a user has been awarded so far
+    // and a String for location
+
 
     public Base64 getImage(){ return sImage; }
 

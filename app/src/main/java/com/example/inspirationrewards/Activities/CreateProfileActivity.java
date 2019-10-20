@@ -6,7 +6,6 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,7 +14,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -25,21 +23,15 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.inspirationrewards.AsyncTasks.CreateProfileAPIAsyncTask;
 import com.example.inspirationrewards.Classes.User;
-import com.example.inspirationrewards.Dialogs.GeneralDialog;
-import com.example.inspirationrewards.Dialogs.PermissionDialog;
 import com.example.inspirationrewards.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Locale;
-
-import static android.Manifest.permission_group.CAMERA;
-import static android.graphics.Color.GREEN;
 
 public class CreateProfileActivity extends AppCompatActivity {
 
@@ -57,6 +49,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     private EditText position;
     private EditText aboutUser;
     private CheckBox isAdmin;
+    User user = new User();
 
 
 
@@ -81,6 +74,16 @@ public class CreateProfileActivity extends AppCompatActivity {
     }
 
     private void saveUser(){
+        createUserObject();
+        asyncCreateProfile();
+
+    }
+
+    public void asyncCreateProfile(){
+        new CreateProfileAPIAsyncTask(this, user).execute();
+    }
+
+    private void createUserObject(){
         String sUserName = username.getText().toString();
         String sPassword = password.getText().toString();
         String sFirstName = firstName.getText().toString();
@@ -90,7 +93,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         String sAboutUser = aboutUser.getText().toString();
         boolean bIsAdmin = isAdmin.isChecked();
 
-        User user = new User();
+
         user.setUserName(sUserName);
         user.setPassword(sPassword);
         user.setFirstName(sFirstName);
@@ -99,7 +102,6 @@ public class CreateProfileActivity extends AppCompatActivity {
         user.setPosition(sPosition);
         user.setAboutUser(sAboutUser);
         user.setAdmin(bIsAdmin);
-
     }
 
     public void picClicked(View v){
