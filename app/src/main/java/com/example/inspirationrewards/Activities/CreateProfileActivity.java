@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.inspirationrewards.AsyncTasks.CreateProfileAPIAsyncTask;
+import com.example.inspirationrewards.AsyncTasks.GetAllProfilesAPIAsyncTask;
 import com.example.inspirationrewards.Classes.User;
 import com.example.inspirationrewards.R;
 
@@ -307,5 +308,11 @@ public class CreateProfileActivity extends AppCompatActivity {
     public void sendResults(String s) {
 //        ((TextView) findViewById(R.id.resultsText)).setText(s);
         Log.d(TAG, "sendResults: " + s);
+
+
+//        if(s.contains("SUCCESS")) {
+//            Intent intent = new Intent(CreateProfileActivity.this, ProfileActivity.class);
+//            startActivity(intent);
+//        }
     }
 }
