@@ -27,11 +27,11 @@ public class LoginAPIAsyncTask extends AsyncTask<String, Void, String> {
     private static final String loginEndPoint ="/login";
     private final int studentID = 20452745;
     private LoginActivity loginActivity;
-    private User user;
+    private String[] aData;
 
-    public LoginAPIAsyncTask(LoginActivity la, User user){
+    public LoginAPIAsyncTask(LoginActivity la, String[] aData){
         loginActivity = la;
-        this.user = user;
+        this.aData = aData;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class LoginAPIAsyncTask extends AsyncTask<String, Void, String> {
             result = "FAILED";
         else
             result = "SUCCESS";
-        loginActivity.sendResults(result + "\n" + connectionResult);
+        loginActivity.sendResults(result, connectionResult);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class LoginAPIAsyncTask extends AsyncTask<String, Void, String> {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("studentId", studentID);
-            jsonObject.put("username", user.getUsername());
-            jsonObject.put("password", user.getPassword());
+            jsonObject.put("username", aData[0]);
+            jsonObject.put("password", aData[1]);
 
             return doAuth(jsonObject.toString());
 

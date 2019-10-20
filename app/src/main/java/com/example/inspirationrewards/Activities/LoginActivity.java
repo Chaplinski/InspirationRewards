@@ -11,7 +11,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.inspirationrewards.AsyncTasks.CreateProfileAPIAsyncTask;
+import com.example.inspirationrewards.AsyncTasks.LoginAPIAsyncTask;
 import com.example.inspirationrewards.R;
+
+import java.lang.reflect.Array;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,6 +31,28 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        userName = findViewById(R.id.etLoginUsername);
+        password = findViewById(R.id.etLoginPassword);
+        login = findViewById(R.id.buttonLogin);
+        rememberCredentials = findViewById(R.id.cbRememberCredentials);
+
+        login.setOnClickListener(new Button.OnClickListener(){
+            public void onClick(View v){
+                attemptLogin();
+            }
+        });
+    }
+
+    public void attemptLogin(){
+        String sUserName = userName.getText().toString();
+        String sPassword = password.getText().toString();
+        String[] aData = {sUserName, sPassword};
+        asyncLogin(aData);
+
+    }
+
+    public void asyncLogin(String[] aData){
+        new LoginAPIAsyncTask(this, aData).execute();
     }
 
     public void goProfileCreate(View v){
@@ -34,9 +60,14 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intentCreateProfile);
     }
 
-    public void sendResults(String s) {
+    public void sendResults(String result, String json) {
 //        ((TextView) findViewById(R.id.resultsText)).setText(s);
-        Log.d(TAG, "sendResults: " + s);
+        Log.d(TAG, "sendResults: " + result);
+        if(result.equals("SUCCESS")){
+            //TODO show user profile screen
+        } else{
+
+        }
 
 
 //        if(s.contains("SUCCESS")) {

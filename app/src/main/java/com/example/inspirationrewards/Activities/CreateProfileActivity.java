@@ -23,11 +23,9 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.inspirationrewards.AsyncTasks.CreateProfileAPIAsyncTask;
-import com.example.inspirationrewards.AsyncTasks.GetAllProfilesAPIAsyncTask;
 import com.example.inspirationrewards.Classes.User;
 import com.example.inspirationrewards.R;
 
@@ -64,7 +62,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         setTitle("Create Profile");
         imageView = findViewById(R.id.imageView);
         username = findViewById(R.id.etUserName);
-        password = findViewById(R.id.etPassword);
+        password = findViewById(R.id.etLoginPassword);
         firstName = findViewById(R.id.etFirstName);
         lastName = findViewById(R.id.etLastName);
         department = findViewById(R.id.etDepartment);
