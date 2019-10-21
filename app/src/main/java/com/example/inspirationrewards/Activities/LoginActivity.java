@@ -2,7 +2,9 @@ package com.example.inspirationrewards.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +34,20 @@ public class LoginActivity extends AppCompatActivity {
     private User user = new User();
     private CheckBox rememberCredentials;
 
+    private static final String PREFS_NAME = "preferences";
+    private static final String PREF_UNAME = "Username";
+    private static final String PREF_PASSWORD = "Password";
+    private static final String PREF_CHECKBOX = "Checkbox";
+
+    private final String DefaultUnameValue = "";
+    private String uNameValue;
+
+    private final boolean DefaultCheckboxValue = false;
+    private boolean checkboxValue;
+
+    private final String DefaultPasswordValue = "";
+    private String passwordValue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +58,62 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.etLoginPassword);
         login = findViewById(R.id.buttonLogin);
         rememberCredentials = findViewById(R.id.cbRememberCredentials);
-
+        loadPreferences();
         login.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
                 attemptLogin();
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        savePreferences();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadPreferences();
+    }
+
+    private void savePreferences() {
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+
+        // Edit and commit
+        uNameValue = userName.getText().toString();
+        passwordValue = password.getText().toString();
+        checkboxValue = rememberCredentials.isChecked();
+        if (checkboxValue == true) {
+            editor.putString(PREF_UNAME, uNameValue);
+            editor.putString(PREF_PASSWORD, passwordValue);
+            editor.putBoolean(PREF_CHECKBOX, true);
+        } else {
+            editor.putString(PREF_UNAME, "");
+            editor.putString(PREF_PASSWORD, "");
+            editor.putBoolean(PREF_CHECKBOX, false);
+        }
+        editor.commit();
+    }
+
+    private void loadPreferences() {
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME,
+                Context.MODE_PRIVATE);
+
+        // Get value
+        uNameValue = settings.getString(PREF_UNAME, DefaultUnameValue);
+        passwordValue = settings.getString(PREF_PASSWORD, DefaultPasswordValue);
+        checkboxValue = settings.getBoolean(PREF_CHECKBOX, DefaultCheckboxValue);
+        userName.setText(uNameValue);
+        password.setText(passwordValue);
+        if(checkboxValue) {
+            rememberCredentials.setChecked(true);
+        }
     }
 
     public void attemptLogin(){
