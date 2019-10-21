@@ -12,8 +12,8 @@
         android:layout_height="match_parent"
         tools:context=".Activities.ProfileActivity">
 
-        <EditText
-            android:id="@+id/editText10"
+        <TextView
+            android:id="@+id/tvStory"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -37,11 +37,11 @@
             android:layout_marginTop="8dp"
             android:scaleType="fitStart"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            app:layout_constraintTop_toBottomOf="@+id/tvLocation"
             app:srcCompat="@drawable/default_photo" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tvProfileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -53,7 +53,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/tvProfileUserName"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_marginStart="8dp"
@@ -62,11 +62,11 @@
             android:text="(user555)"
             android:textSize="18sp"
             android:textStyle="italic"
-            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toEndOf="@+id/tvProfileName"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/tvLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -74,7 +74,7 @@
             android:textSize="18sp"
             android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toBottomOf="@+id/tvProfileName" />
 
         <TextView
             android:id="@+id/textView8"
@@ -87,7 +87,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/tvPointsAwarded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -106,10 +106,10 @@
             android:layout_marginTop="12dp"
             android:text="Department:"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPointsAwarded" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/tvDepartment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -127,10 +127,10 @@
             android:layout_marginTop="12dp"
             android:text="Position:"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+            app:layout_constraintTop_toBottomOf="@+id/tvDepartment" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/tvPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -148,10 +148,10 @@
             android:layout_marginTop="12dp"
             android:text="Points to Award:"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPosition" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/tvPointsToAward"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -189,7 +189,7 @@
             android:layout_marginTop="16dp"
             android:text="Reward History (2):"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText10" />
+            app:layout_constraintTop_toBottomOf="@+id/tvStory" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

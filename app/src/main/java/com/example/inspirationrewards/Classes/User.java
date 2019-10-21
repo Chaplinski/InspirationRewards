@@ -2,7 +2,9 @@ package com.example.inspirationrewards.Classes;
 
 import android.util.Base64;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     //private Base64 sImage;
     private String sUsername;
@@ -14,7 +16,7 @@ public class User {
     private String sStory;
     private String sLocation;
     private String sImage;
-    private int iRewards;
+    private int iPointsAwarded;
     private int iPointsToAward;
     private boolean bIsAdmin;
     //possibly be adding a variable for number of points a user has been awarded so far
@@ -61,9 +63,9 @@ public class User {
 
     public void setImage(String newImage){ sImage = newImage; }
 
-    public int getRewards(){ return iRewards; }
+    public int getPointsAwarded(){ return iPointsAwarded; }
 
-    public void setRewards(int rewards){ iRewards = rewards; }
+    public void setPointsAwarded(int rewards){ iPointsAwarded = rewards; }
 
     public int getPointsToAward(){ return iPointsToAward; }
 

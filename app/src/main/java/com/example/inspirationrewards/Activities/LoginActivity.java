@@ -13,16 +13,23 @@ import android.widget.Toast;
 
 import com.example.inspirationrewards.AsyncTasks.CreateProfileAPIAsyncTask;
 import com.example.inspirationrewards.AsyncTasks.LoginAPIAsyncTask;
+import com.example.inspirationrewards.Classes.User;
 import com.example.inspirationrewards.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
 import java.lang.reflect.Array;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final int PASS_USER_OBJECT_REQUEST_CODE = 101;
     private String TAG = "LOGINACTIVITY";
     private EditText userName;
     private EditText password;
     private Button login;
+    private User user = new User();
     private CheckBox rememberCredentials;
 
     @Override
@@ -63,8 +70,29 @@ public class LoginActivity extends AppCompatActivity {
     public void sendResults(String result, String json) {
 //        ((TextView) findViewById(R.id.resultsText)).setText(s);
         Log.d(TAG, "sendResults: " + result);
+        Log.d(TAG, "sendResults: " + json);
         if(result.equals("SUCCESS")){
             //TODO show user profile screen
+            try {
+                JSONObject jsonObject = new JSONObject(json);
+                Log.d(TAG, "sendResults: " + jsonObject.getString("firstName"));
+                user.setFirstName(jsonObject.getString("firstName"));
+                user.setLastName(jsonObject.getString("lastName"));
+                user.setUserName(jsonObject.getString("username"));
+                user.setLocation(jsonObject.getString("location"));
+                user.setDepartment(jsonObject.getString("department"));
+                user.setPosition(jsonObject.getString("position"));
+                user.setPointsToAward(jsonObject.getInt("pointsToAward"));
+                user.setStory(jsonObject.getString("story"));
+                user.setImage(jsonObject.getString("imageBytes"));
+
+                Intent intentNoteCreation = new Intent(LoginActivity.this, ProfileActivity.class);
+                intentNoteCreation.putExtra("User Object", user);
+                startActivityForResult(intentNoteCreation, PASS_USER_OBJECT_REQUEST_CODE);
+            }catch (JSONException err){
+                Log.d("Error", err.toString());
+            }
+            Log.d(TAG, "sendResults: " + json);
         } else{
 
         }
