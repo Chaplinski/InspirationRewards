@@ -1,10 +1,15 @@
 package com.example.inspirationrewards.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Criteria;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +28,8 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
+
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -48,6 +55,10 @@ public class LoginActivity extends AppCompatActivity {
     private final String DefaultPasswordValue = "";
     private String passwordValue;
 
+    private static int MY_LOCATION_REQUEST_CODE_ID = 329;
+    private LocationManager locationManager;
+    private Criteria criteria;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +75,30 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        criteria = new Criteria();
+
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+        //criteria.setPowerRequirement(Criteria.POWER_HIGH);
+
+        criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
+        //criteria.setAccuracy(Criteria.ACCURACY_FINE);
+
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setSpeedRequired(false);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    },
+                    MY_LOCATION_REQUEST_CODE_ID);
+        }
     }
 
     @Override
@@ -77,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         loadPreferences();
+
     }
 
     private void savePreferences() {

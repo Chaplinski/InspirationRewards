@@ -61,7 +61,7 @@ public class CreateProfileAPIAsyncTask extends AsyncTask<String, Void, String> {
             jsonObject.put("story", user.getStory());
             jsonObject.put("position", user.getPosition());
             jsonObject.put("admin", user.getAdmin());
-            jsonObject.put("location", "Test Location");
+            jsonObject.put("location", user.getLocation());
             jsonObject.put("imageBytes", "Test Image");
             jsonObject.put("rewardRecords", new JSONArray());
 

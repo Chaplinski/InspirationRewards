@@ -3,15 +3,22 @@ package com.example.inspirationrewards.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -31,10 +38,17 @@ import com.example.inspirationrewards.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Locale;
+
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class CreateProfileActivity extends AppCompatActivity {
 
+    private LocationManager locationManager;
+    private Criteria criteria;
     private String TAG = "MainActivity";
     private static final int REQUEST_IMAGE_GALLERY = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
@@ -49,6 +63,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     private EditText position;
     private EditText aboutUser;
     private CheckBox isAdmin;
+    private String location;
     User user = new User();
 
 
@@ -70,6 +85,19 @@ public class CreateProfileActivity extends AppCompatActivity {
         aboutUser = findViewById(R.id.etAboutUser);
         isAdmin = findViewById(R.id.cbIsAdmin);
 
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        criteria = new Criteria();
+
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+        //criteria.setPowerRequirement(Criteria.POWER_HIGH);
+
+        criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
+        //criteria.setAccuracy(Criteria.ACCURACY_FINE);
+
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setSpeedRequired(false);
 
     }
 
@@ -84,6 +112,8 @@ public class CreateProfileActivity extends AppCompatActivity {
     }
 
     private void createUserObject(){
+        location = getLocation();
+
         String sUserName = username.getText().toString();
         String sPassword = password.getText().toString();
         String sFirstName = firstName.getText().toString();
@@ -91,6 +121,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         String sDepartment = department.getText().toString();
         String sPosition = position.getText().toString();
         String sStory = aboutUser.getText().toString();
+//        location =
         boolean bIsAdmin = isAdmin.isChecked();
 
 
@@ -101,7 +132,48 @@ public class CreateProfileActivity extends AppCompatActivity {
         user.setDepartment(sDepartment);
         user.setPosition(sPosition);
         user.setStory(sStory);
+        user.setLocation(location);
         user.setAdmin(bIsAdmin);
+    }
+
+    public String getLocation(){
+        Log.d(TAG, "getLocation: in method");
+        String bestProvider = locationManager.getBestProvider(criteria, true);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PERMISSION_GRANTED) {
+            Log.d(TAG, "getLocation: permission granted");
+            try {
+                Log.d(TAG, "getLocation: in try block");
+                List<Address> addresses;
+                Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+                Location currentLocation = locationManager.getLastKnownLocation(bestProvider);
+
+                double latitude = currentLocation.getLatitude();
+                double longitude = currentLocation.getLongitude();
+
+                addresses = geocoder.getFromLocation(latitude, longitude, 1);
+
+                for (Address ad : addresses) {
+                    Log.d(TAG, "getLocation: in for loop");
+
+//                    String a = String.format("%s %s %s %s %s %s",
+//                            (ad.getSubThoroughfare() == null ? "" : ad.getSubThoroughfare()),
+//                            (ad.getThoroughfare() == null ? "" : ad.getThoroughfare()),
+//                            (ad.getLocality() == null ? "" : ad.getLocality()),
+//                            (ad.getAdminArea() == null ? "" : ad.getAdminArea()),
+//                            (ad.getPostalCode() == null ? "" : ad.getPostalCode()),
+//                            (ad.getCountryName() == null ? "" : ad.getCountryName()));
+
+                    Log.d(TAG, "getLocation: " + ad.getLocality() + ", " + ad.getAdminArea());
+                    return ad.getLocality() + ", " + ad.getAdminArea();
+                }
+
+
+            } catch (IOException e){
+
+            }
+        }
+        return "Unknown Location";
     }
 
     public void picClicked(View v){
