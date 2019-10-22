@@ -2,10 +2,13 @@ package com.example.inspirationrewards.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.inspirationrewards.AsyncTasks.GetAllProfilesAPIAsyncTask;
@@ -67,6 +70,18 @@ public class ProfileActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.view_profile_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuEdit:
+                Intent intentEditProfile = new Intent(ProfileActivity.this, EditProfileActivity.class);
+                intentEditProfile.putExtra("User Object", user);
+                startActivity(intentEditProfile);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void asyncGetAllProfiles(){

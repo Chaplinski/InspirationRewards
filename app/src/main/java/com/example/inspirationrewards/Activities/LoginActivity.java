@@ -16,18 +16,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.inspirationrewards.AsyncTasks.CreateProfileAPIAsyncTask;
 import com.example.inspirationrewards.AsyncTasks.LoginAPIAsyncTask;
 import com.example.inspirationrewards.Classes.User;
 import com.example.inspirationrewards.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.Serializable;
-import java.lang.reflect.Array;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -66,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         userName = findViewById(R.id.etLoginUsername);
-        password = findViewById(R.id.etLoginPassword);
+        password = findViewById(R.id.etEPLoginPassword);
         login = findViewById(R.id.buttonLogin);
         rememberCredentials = findViewById(R.id.cbRememberCredentials);
         loadPreferences();

@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     <EditText
-        android:id="@+id/etLoginPassword"
+        android:id="@+id/etEPLoginPassword"
         android:layout_width="fill_parent"
         android:layout_height="44dp"
         android:layout_marginStart="64dp"
@@ -67,7 +67,7 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etLoginPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/etEPLoginPassword" />
 
     <CheckBox
         android:id="@+id/cbRememberCredentials"
