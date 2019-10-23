@@ -88,9 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void asyncGetAllProfiles(){
-        new GetAllProfilesAPIAsyncTask(this).execute();
-    }
+
 
     public void sendResults(String result, String json) {
         try {

@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.inspirationrewards.Activities.CreateProfileActivity;
+import com.example.inspirationrewards.Activities.LeaderboardActivity;
 import com.example.inspirationrewards.Activities.ProfileActivity;
 import com.example.inspirationrewards.Classes.User;
 import com.example.inspirationrewards.R;
@@ -24,12 +25,12 @@ import static java.net.HttpURLConnection.HTTP_OK;
 public class GetAllProfilesAPIAsyncTask extends AsyncTask<String, Void, String> {
 
     private String TAG = "GetAllProfilesAPIAsyncTask";
-    private static final String createProfileEndPoint ="/allprofiles";
+    private static final String getAllProfilesEndPoint ="/allprofiles";
     private final int studentID = 20452745;
-    private ProfileActivity ProfileActivity;
+    private LeaderboardActivity LeaderboardActivity;
 
-    public GetAllProfilesAPIAsyncTask(ProfileActivity cPA){
-        ProfileActivity = cPA;
+    public GetAllProfilesAPIAsyncTask(LeaderboardActivity lba){
+        LeaderboardActivity = lba;
     }
 
     @Override
@@ -42,7 +43,7 @@ public class GetAllProfilesAPIAsyncTask extends AsyncTask<String, Void, String> 
             result = "FAILED";
         else
             result = "SUCCESS";
-        ProfileActivity.sendResults(result, connectionResult);
+        LeaderboardActivity.sendResults(result, connectionResult);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class GetAllProfilesAPIAsyncTask extends AsyncTask<String, Void, String> 
 
         try {
 
-            String urlString = ProfileActivity.getResources().getString(R.string.base_url) + createProfileEndPoint;
+            String urlString = LeaderboardActivity.getResources().getString(R.string.base_url) + getAllProfilesEndPoint;
 
 
             Uri.Builder buildURL = Uri.parse(urlString).buildUpon();
