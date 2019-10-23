@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/lbImage"
         android:layout_width="64dp"
         android:layout_height="88dp"
         android:layout_marginStart="8dp"
@@ -23,11 +23,11 @@
         android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/lbImage"
         app:srcCompat="@drawable/separator" />
 
     <TextView
-        android:id="@+id/textView30"
+        android:id="@+id/lbName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -35,21 +35,21 @@
         android:text="Wilkinson, Katherine"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toEndOf="@+id/lbImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView31"
+        android:id="@+id/lbPosition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="24dp"
         android:text="Tax Manager, Finance"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView30" />
+        app:layout_constraintStart_toEndOf="@+id/lbImage"
+        app:layout_constraintTop_toBottomOf="@+id/lbName" />
 
     <TextView
-        android:id="@+id/textView32"
+        android:id="@+id/lbScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
