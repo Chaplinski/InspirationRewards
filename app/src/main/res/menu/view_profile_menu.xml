@@ -11,7 +11,7 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/menuSort"
+        android:id="@+id/menuViewLeaderboard"
         android:icon="@android:drawable/ic_menu_sort_by_size"
         android:title="Do A"
         app:showAsAction="always" />

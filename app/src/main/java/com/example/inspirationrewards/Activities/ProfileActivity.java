@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.inspirationrewards.AsyncTasks.GetAllProfilesAPIAsyncTask;
 import com.example.inspirationrewards.Classes.User;
@@ -79,6 +80,9 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent intentEditProfile = new Intent(ProfileActivity.this, EditProfileActivity.class);
                 intentEditProfile.putExtra("User Object", user);
                 startActivity(intentEditProfile);
+            case R.id.menuViewLeaderboard:
+                Intent intentLeaderBoard = new Intent(ProfileActivity.this, LeaderboardActivity.class);
+                startActivity(intentLeaderBoard);
             default:
                 return super.onOptionsItemSelected(item);
         }

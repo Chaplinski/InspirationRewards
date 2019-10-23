@@ -18,8 +18,13 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.example.inspirationrewards.AsyncTasks.LoginAPIAsyncTask;
+import com.example.inspirationrewards.AsyncTasks.UpdateProfileAPIAsyncTask;
 import com.example.inspirationrewards.Classes.User;
 import com.example.inspirationrewards.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
@@ -163,7 +168,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 //get updated user
                 getUpdatedUser();
                 //run async task updating user info
-
+                asyncUpdate(updatedUser);
                 //open user profile activity
                 Intent intentEditProfile = new Intent(EditProfileActivity.this, ProfileActivity.class);
                 intentEditProfile.putExtra("User Object", updatedUser);
@@ -171,5 +176,48 @@ public class EditProfileActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void asyncUpdate(User updatedUser){
+        new UpdateProfileAPIAsyncTask(this, updatedUser).execute();
+    }
+
+    public void sendResults(String result, String json) {
+        Log.d(TAG, "sendResults2: " + result);
+        Log.d(TAG, "sendResults2: " + json);
+////        ((TextView) findViewById(R.id.resultsText)).setText(s);
+//        Log.d(TAG, "sendResults: " + result);
+//        Log.d(TAG, "sendResults: " + json);
+//        if(result.equals("SUCCESS")){
+//            //TODO show user profile screen
+//            try {
+//                JSONObject jsonObject = new JSONObject(json);
+//                Log.d(TAG, "sendResults: " + jsonObject.getString("firstName"));
+//                user.setFirstName(jsonObject.getString("firstName"));
+//                user.setLastName(jsonObject.getString("lastName"));
+//                user.setUserName(jsonObject.getString("username"));
+//                user.setLocation(jsonObject.getString("location"));
+//                user.setDepartment(jsonObject.getString("department"));
+//                user.setPosition(jsonObject.getString("position"));
+//                user.setPointsToAward(jsonObject.getInt("pointsToAward"));
+//                user.setStory(jsonObject.getString("story"));
+//                user.setImage(jsonObject.getString("imageBytes"));
+//
+//                Intent intentNoteCreation = new Intent(LoginActivity.this, ProfileActivity.class);
+//                intentNoteCreation.putExtra("User Object", user);
+//                startActivityForResult(intentNoteCreation, PASS_USER_OBJECT_REQUEST_CODE);
+//            }catch (JSONException err){
+//                Log.d("Error", err.toString());
+//            }
+//            Log.d(TAG, "sendResults: " + json);
+//        } else{
+//
+//        }
+//
+//
+////        if(s.contains("SUCCESS")) {
+////            Intent intent = new Intent(CreateProfileActivity.this, ProfileActivity.class);
+////            startActivity(intent);
+////        }
     }
 }
