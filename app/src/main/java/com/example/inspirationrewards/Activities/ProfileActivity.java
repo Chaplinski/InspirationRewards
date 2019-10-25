@@ -32,6 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView position;
     private TextView pointsToAward;
     private TextView story;
+    private String[] aLoginData = new String[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +50,11 @@ public class ProfileActivity extends AppCompatActivity {
         pointsToAward = findViewById(R.id.tvPointsToAward);
         story = findViewById(R.id.tvStory);
         Intent intent = getIntent();
+        aLoginData = intent.getStringArrayExtra("User Login Data");
+        Log.d(TAG, "onCreate: " + aLoginData[0]);
+        Log.d(TAG, "onCreate: " + aLoginData[1]);
         if (intent.hasExtra("User Object")) {
             user = (User)intent.getSerializableExtra("User Object");
-            Log.d(TAG, "onCreate: " + user.getLastName());
             String sFullName = user.getLastName() + ", " + user.getFirstName();
             name.setText(sFullName);
             userName.setText(user.getUsername());
@@ -82,6 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intentEditProfile);
             case R.id.menuViewLeaderboard:
                 Intent intentLeaderBoard = new Intent(ProfileActivity.this, LeaderboardActivity.class);
+                intentLeaderBoard.putExtra("User Login Data", aLoginData);
                 startActivity(intentLeaderBoard);
             default:
                 return super.onOptionsItemSelected(item);

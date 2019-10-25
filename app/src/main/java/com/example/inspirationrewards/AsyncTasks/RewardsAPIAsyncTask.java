@@ -18,6 +18,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 
@@ -29,12 +33,15 @@ public class RewardsAPIAsyncTask extends AsyncTask<String, Void, String> {
     private AwardActivity AwardActivity;
     private User userToAward;
     private String[] aData;
+    private String[] aLoginData;
 
-    public RewardsAPIAsyncTask(AwardActivity aa, User updatedUser, String[] aData){
+
+    public RewardsAPIAsyncTask(AwardActivity aa, User updatedUser, String[] aData, String[] aLoginData){
 
         AwardActivity = aa;
         userToAward = updatedUser;
         this.aData = aData;
+        this.aLoginData = aLoginData;
     }
 
     @Override
@@ -55,6 +62,10 @@ public class RewardsAPIAsyncTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
 
         try {
+            Date today = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyy");
+            String sToday = dateFormat.format(today);
+
             JSONObject jsonObject = new JSONObject();
             JSONObject jsonTarget = new JSONObject();
             JSONObject jsonSource = new JSONObject();
@@ -62,19 +73,16 @@ public class RewardsAPIAsyncTask extends AsyncTask<String, Void, String> {
             jsonTarget.put("studentId", studentID);
             jsonTarget.put("username", userToAward.getUsername());
             jsonTarget.put("name", userToAward.getFirstName() + " " + userToAward.getLastName());
-            //TODO add real date
-            jsonTarget.put("date", "03/10/2019");
-            //TODO add notes and value to json Target
+            jsonTarget.put("date", sToday);
             String sPoints = aData[0];
 
             int iPoints = Integer.parseInt(sPoints);
-            //todo add points
             jsonTarget.put("value", iPoints);
             jsonTarget.put("notes", aData[1]);
 
             jsonSource.put("studentId", studentID);
-            jsonSource.put("username", "user3");
-            jsonSource.put("password", "pw3");
+            jsonSource.put("username", aLoginData[0]);
+            jsonSource.put("password", aLoginData[1]);
 
             jsonObject.put("target", jsonTarget);
             jsonObject.put("source", jsonSource);

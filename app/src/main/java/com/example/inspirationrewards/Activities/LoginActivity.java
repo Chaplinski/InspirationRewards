@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     private static int MY_LOCATION_REQUEST_CODE_ID = 329;
     private LocationManager locationManager;
     private Criteria criteria;
+    String[] aLoginData = new String[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,8 +151,9 @@ public class LoginActivity extends AppCompatActivity {
     public void attemptLogin(){
         String sUserName = userName.getText().toString();
         String sPassword = password.getText().toString();
-        String[] aData = {sUserName, sPassword};
-        asyncLogin(aData);
+        aLoginData[0] = sUserName;
+        aLoginData[1] = sPassword;
+        asyncLogin(aLoginData);
 
     }
 
@@ -160,6 +162,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void goProfileCreate(View v){
+//        Log.d(TAG, "goProfileCreate: " + aLoginData[0]);
+//        Log.d(TAG, "goProfileCreate: " + aLoginData[1]);
         Intent intentCreateProfile = new Intent(LoginActivity.this, CreateProfileActivity.class);
         startActivity(intentCreateProfile);
     }
@@ -183,9 +187,10 @@ public class LoginActivity extends AppCompatActivity {
                 user.setStory(jsonObject.getString("story"));
                 user.setImage(jsonObject.getString("imageBytes"));
 
-                Intent intentNoteCreation = new Intent(LoginActivity.this, ProfileActivity.class);
-                intentNoteCreation.putExtra("User Object", user);
-                startActivityForResult(intentNoteCreation, PASS_USER_OBJECT_REQUEST_CODE);
+                Intent intentProfileView = new Intent(LoginActivity.this, ProfileActivity.class);
+                intentProfileView.putExtra("User Login Data", aLoginData);
+                intentProfileView.putExtra("User Object", user);
+                startActivityForResult(intentProfileView, PASS_USER_OBJECT_REQUEST_CODE);
             }catch (JSONException err){
                 Log.d("Error", err.toString());
             }

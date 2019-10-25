@@ -2,6 +2,8 @@ package com.example.inspirationrewards.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,8 @@ public class AwardActivity extends AppCompatActivity {
     private TextView story;
     private EditText pointsToAward;
     private EditText comment;
+    private String[] aLoginData = new String[2];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +39,10 @@ public class AwardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_award);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("Franklin Moreno");
         Intent intent = getIntent();
+        intent.getStringArrayExtra("User Login Data");
+        aLoginData = intent.getStringArrayExtra("User Login Data");
+
         name = findViewById(R.id.aaName);
         pointsAwarded = findViewById(R.id.aaPointsAwarded);
         department = findViewById(R.id.aaDepartment);
@@ -53,6 +59,8 @@ public class AwardActivity extends AppCompatActivity {
             department.setText(user.getDepartment());
             position.setText(user.getPosition());
             story.setText(user.getStory());
+            setTitle(user.getFirstName() + " " + user.getLastName());
+
 
         }
     }
@@ -67,8 +75,30 @@ public class AwardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuSave:
-                String[] aData = getData();
-                asyncAddRewards(user, aData);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Add Rewards Points?");
+                builder.setMessage("Add rewards points for " + user.getFirstName() + " " + user.getLastName() + "?");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing but close the dialog
+                        String[] aData = getData();
+                        asyncAddRewards(user, aData, aLoginData);
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing but close the dialog
+
+                    }
+                });
+
+                builder.setIcon(R.drawable.logo);
+                AlertDialog alert = builder.create();
+                alert.show();
+
 //                Toast.makeText(this, "scoopy", Toast.LENGTH_SHORT).show();
             default:
                 return super.onOptionsItemSelected(item);
@@ -85,8 +115,8 @@ public class AwardActivity extends AppCompatActivity {
 
     }
 
-    public void asyncAddRewards(User updatedUser, String[] aData){
-        new RewardsAPIAsyncTask(this, updatedUser, aData).execute();
+    public void asyncAddRewards(User updatedUser, String[] aData, String[] aLoginData){
+        new RewardsAPIAsyncTask(this, updatedUser, aData, aLoginData).execute();
     }
 
     public void sendResults(String result, String json) {

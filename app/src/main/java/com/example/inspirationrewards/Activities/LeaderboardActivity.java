@@ -30,8 +30,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
     private RecyclerView recyclerView;
     private UserAdapter mAdapter;
     private List<User> aUsers = new ArrayList<>();
-
-
+    private String[] aLoginData = new String[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,8 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_with_logo);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Inspiration Leaderboard");
+        Intent intent = getIntent();
+        aLoginData = intent.getStringArrayExtra("User Login Data");
 
         recyclerView = findViewById(R.id.userRecycler);
         mAdapter = new UserAdapter(aUsers, this);
@@ -94,6 +95,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
         final int position = recyclerView.getChildLayoutPosition(v);
         Intent intentAwardActivity = new Intent(LeaderboardActivity.this, AwardActivity.class);
         intentAwardActivity.putExtra("User Object", aUsers.get(position));
+        intentAwardActivity.putExtra("User Login Data", aLoginData);
         startActivity(intentAwardActivity);
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
     }
