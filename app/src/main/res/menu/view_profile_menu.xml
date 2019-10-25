@@ -7,13 +7,13 @@
     <item
         android:id="@+id/menuEdit"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="Do A"
+        android:title="Edit"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/menuViewLeaderboard"
         android:icon="@android:drawable/ic_menu_sort_by_size"
-        android:title="Do A"
+        android:title="Leaderboard"
         app:showAsAction="always" />
 
 
