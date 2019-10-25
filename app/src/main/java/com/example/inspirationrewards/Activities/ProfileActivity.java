@@ -38,35 +38,35 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon);// set drawable icon
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        setTitle("Your Profile");
-//        name = findViewById(R.id.tvProfileName);
-//        userName = findViewById(R.id.tvProfileUserName);
-//        location = findViewById(R.id.tvLocation);
-//        pointsAwarded = findViewById(R.id.tvPointsAwarded);
-//        department = findViewById(R.id.tvDepartment);
-//        position = findViewById(R.id.tvPosition);
-//        pointsToAward = findViewById(R.id.tvPointsToAward);
-//        story = findViewById(R.id.tvStory);
-//        Intent intent = getIntent();
-//        aLoginData = intent.getStringArrayExtra("User Login Data");
-//        Log.d(TAG, "onCreate: " + aLoginData[0]);
-//        Log.d(TAG, "onCreate: " + aLoginData[1]);
-//        if (intent.hasExtra("User Object")) {
-//            user = (User)intent.getSerializableExtra("User Object");
-//            String sFullName = user.getLastName() + ", " + user.getFirstName();
-//            name.setText(sFullName);
-//            userName.setText(user.getUsername());
-//            location.setText(user.getLocation());
-//            String sPointsAwarded = Integer.toString(user.getPointsAwarded());
-//            pointsAwarded.setText(sPointsAwarded);
-//            department.setText(user.getDepartment());
-//            position.setText(user.getPosition());
-//            String sPointsToAward = Integer.toString(user.getPointsToAward());
-//            pointsToAward.setText(sPointsToAward);
-//            story.setText(user.getStory());
-//        }
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon);// set drawable icon
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Your Profile");
+        name = findViewById(R.id.tvProfileName);
+        userName = findViewById(R.id.tvProfileUserName);
+        location = findViewById(R.id.tvLocation);
+        pointsAwarded = findViewById(R.id.tvPointsAwarded);
+        department = findViewById(R.id.tvDepartment);
+        position = findViewById(R.id.tvPosition);
+        pointsToAward = findViewById(R.id.tvPointsToAward);
+        story = findViewById(R.id.tvStory);
+        Intent intent = getIntent();
+        aLoginData = intent.getStringArrayExtra("User Login Data");
+        Log.d(TAG, "onCreate: " + aLoginData[0]);
+        Log.d(TAG, "onCreate: " + aLoginData[1]);
+        if (intent.hasExtra("User Object")) {
+            user = (User)intent.getSerializableExtra("User Object");
+            String sFullName = user.getLastName() + ", " + user.getFirstName();
+            name.setText(sFullName);
+            userName.setText(user.getUsername());
+            location.setText(user.getLocation());
+            String sPointsAwarded = Integer.toString(user.getPointsAwarded());
+            pointsAwarded.setText(sPointsAwarded);
+            department.setText(user.getDepartment());
+            position.setText(user.getPosition());
+            String sPointsToAward = Integer.toString(user.getPointsToAward());
+            pointsToAward.setText(sPointsToAward);
+            story.setText(user.getStory());
+        }
 
     }
 

@@ -145,6 +145,7 @@
         android:ems="10"
         android:gravity="start"
         android:inputType="textMultiLine|textPersonName"
+        android:maxLength="360"
         android:paddingLeft="4dp"
         android:paddingTop="8dp"
         android:paddingEnd="8dp"
@@ -156,7 +157,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEPyourStory" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -193,13 +194,14 @@
         app:layout_constraintTop_toBottomOf="@+id/etEPDepartment" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvEPyourStory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:height="40sp"
         android:gravity="center"
+        android:maxLength="360"
         android:text="Your Story: (331 of 360)"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"

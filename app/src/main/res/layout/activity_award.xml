@@ -142,12 +142,12 @@
             app:layout_constraintTop_toBottomOf="@+id/aaStory" />
 
         <TextView
-            android:id="@+id/textView29"
+            android:id="@+id/aaCharCounter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="Comment: (67 of 80)"
+            android:text="Comment: (0 of 80)"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
@@ -162,8 +162,9 @@
             android:ems="10"
             android:gravity="start"
             android:inputType="textMultiLine|textPersonName"
+            android:maxLength="80"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView29" />
+            app:layout_constraintTop_toBottomOf="@+id/aaCharCounter" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

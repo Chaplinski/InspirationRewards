@@ -22,6 +22,8 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -30,6 +32,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.inspirationrewards.AsyncTasks.CreateProfileAPIAsyncTask;
@@ -62,6 +65,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     private EditText department;
     private EditText position;
     private EditText aboutUser;
+    private TextView charCounter;
     private CheckBox isAdmin;
     private String location;
     User user = new User();
@@ -84,6 +88,9 @@ public class CreateProfileActivity extends AppCompatActivity {
         position = findViewById(R.id.etEPPosition);
         aboutUser = findViewById(R.id.etEPAboutUser);
         isAdmin = findViewById(R.id.cbEPIsAdmin);
+        aboutUser.addTextChangedListener(mTextEditorWatcher);
+
+        charCounter = findViewById(R.id.tvEPyourStory);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -100,6 +107,21 @@ public class CreateProfileActivity extends AppCompatActivity {
         criteria.setSpeedRequired(false);
 
     }
+
+    private final TextWatcher mTextEditorWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //This sets a textview to the current length
+            String sStoryLength = String.valueOf(s.length());
+
+            charCounter.setText("Your Story: (" + sStoryLength + " of 360)");
+        }
+
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
     private void saveUser(){
         createUserObject();

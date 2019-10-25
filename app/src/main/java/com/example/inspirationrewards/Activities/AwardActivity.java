@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +30,7 @@ public class AwardActivity extends AppCompatActivity {
     private TextView department;
     private TextView position;
     private TextView story;
+    private TextView counter;
     private EditText pointsToAward;
     private EditText comment;
     private String[] aLoginData = new String[2];
@@ -50,6 +53,9 @@ public class AwardActivity extends AppCompatActivity {
         story = findViewById(R.id.aaStory);
         pointsToAward = findViewById(R.id.aaPointsToSend);
         comment = findViewById(R.id.aaComment);
+        counter = findViewById(R.id.aaCharCounter);
+        comment.addTextChangedListener(mTextEditorWatcher);
+
 
         if(intent.hasExtra("User Object")){
             user = (User)intent.getSerializableExtra("User Object");
@@ -64,6 +70,21 @@ public class AwardActivity extends AppCompatActivity {
 
         }
     }
+
+    private final TextWatcher mTextEditorWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //This sets a textview to the current length
+            String sCommentLength = String.valueOf(s.length());
+
+            counter.setText("Comment: (" + sCommentLength + " of 80)");
+        }
+
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

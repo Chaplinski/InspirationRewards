@@ -12,11 +12,14 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.inspirationrewards.AsyncTasks.LoginAPIAsyncTask;
 import com.example.inspirationrewards.AsyncTasks.UpdateProfileAPIAsyncTask;
@@ -45,6 +48,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText department;
     private EditText position;
     private EditText story;
+    private TextView charCounter;
     private String location;
     private LocationManager locationManager;
     private Criteria criteria;
@@ -81,11 +85,13 @@ public class EditProfileActivity extends AppCompatActivity {
         department = findViewById(R.id.etEPDepartment);
         position = findViewById(R.id.etEPPosition);
         story = findViewById(R.id.etEPAboutUser);
+        charCounter = findViewById(R.id.tvEPyourStory);
+        story.addTextChangedListener(mTextEditorWatcher);
 
         Intent intent = getIntent();
         if (intent.hasExtra("User Object")) {
             user = (User)intent.getSerializableExtra("User Object");
-            Log.d(TAG, "onCreate here : " + user.getDepartment());
+            Log.d(TAG, "onCreate here : " + user.getPassword());
 
             username.setFocusable(false);
             username.setClickable(false);
@@ -98,9 +104,34 @@ public class EditProfileActivity extends AppCompatActivity {
             department.setText(user.getDepartment());
             position.setText(user.getPosition());
             story.setText(user.getStory());
+
+            if(user.getStory() != null) {
+                String sStoryLength = String.valueOf(user.getStory().length());
+                charCounter.setText("Your Story: (" + sStoryLength + " of 360)");
+            }
+
+
+
+
+
         }
 
     }
+
+    private final TextWatcher mTextEditorWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //This sets a textview to the current length
+            String sStoryLength = String.valueOf(s.length());
+
+            charCounter.setText("Your Story: (" + sStoryLength + " of 360)");
+        }
+
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
     private void getUpdatedUser(){
         location = getLocation();
