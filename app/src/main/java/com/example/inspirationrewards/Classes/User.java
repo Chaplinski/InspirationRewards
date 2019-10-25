@@ -63,7 +63,9 @@ public class User implements Serializable {
 
     public void setImage(String newImage){ sImage = newImage; }
 
-    public int getPointsAwarded(){ return iPointsAwarded; }
+    public int getPointsAwarded(){
+        return iPointsAwarded;
+    }
 
     public void setPointsAwarded(int rewards){ iPointsAwarded = rewards; }
 

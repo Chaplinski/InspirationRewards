@@ -54,10 +54,10 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void sendResults(String result, String json) {
-        Log.d(TAG, "sendResultsLeaderboard: " + result);
-        Log.d(TAG, "sendResultsLeaderboard: " + json);
+//        Log.d(TAG, "sendResultsLeaderboard: " + result);
+//        Log.d(TAG, "sendResultsLeaderboard: " + json);
         try {
-            Log.d(TAG, "sendResults: " + json);
+//            Log.d(TAG, "sendResults: " + json);
             JSONArray jsonArray = new JSONArray(json);
 
             for (int i = 0; i < jsonArray.length(); i++) {

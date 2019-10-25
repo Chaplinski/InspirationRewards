@@ -8,22 +8,21 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background"
         tools:context=".Activities.AwardActivity">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/aaImageView"
             android:layout_width="116dp"
             android:layout_height="180dp"
             android:layout_marginStart="48dp"
             android:layout_marginTop="8dp"
             android:scaleType="fitStart"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView19"
+            app:layout_constraintTop_toBottomOf="@+id/aaName"
             app:srcCompat="@drawable/default_photo" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/aaName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -42,11 +41,11 @@
             android:layout_marginTop="8dp"
             android:text="Points Awarded:"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView19" />
+            app:layout_constraintStart_toEndOf="@+id/aaImageView"
+            app:layout_constraintTop_toBottomOf="@+id/aaName" />
 
         <TextView
-            android:id="@+id/textView21"
+            android:id="@+id/aaPointsAwarded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -54,7 +53,7 @@
             android:text="280"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintStart_toEndOf="@+id/aaImageView"
             app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
         <TextView
@@ -64,18 +63,18 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:text="Department:"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView21" />
+            app:layout_constraintStart_toEndOf="@+id/aaImageView"
+            app:layout_constraintTop_toBottomOf="@+id/aaPointsAwarded" />
 
         <TextView
-            android:id="@+id/textView23"
+            android:id="@+id/aaDepartment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="2dp"
             android:text="Human Resources"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintStart_toEndOf="@+id/aaImageView"
             app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
         <TextView
@@ -85,18 +84,18 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:text="Position:"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView23" />
+            app:layout_constraintStart_toEndOf="@+id/aaImageView"
+            app:layout_constraintTop_toBottomOf="@+id/aaDepartment" />
 
         <TextView
-            android:id="@+id/textView25"
+            android:id="@+id/aaPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="2dp"
             android:text="Rewards Manager"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintStart_toEndOf="@+id/aaImageView"
             app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
         <TextView
@@ -107,15 +106,14 @@
             android:layout_marginTop="16dp"
             android:text="Your Story:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toBottomOf="@+id/aaImageView" />
 
         <TextView
-            android:id="@+id/textView27"
+            android:id="@+id/aaStory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="This sentence is ambiguous. What I am trying to say is that when I write, I am careful not to commit the logical fallacies in my arguments. While I can say it this way, trying to use &quot;mindful of&quot; makes things confusing.  Does &quot;mindful of committing logical fallacies&quot; mean (a) mindful that I don't commit fallacy or (b) mindful that I do commit fallacy?"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView26" />
@@ -129,20 +127,19 @@
             android:gravity="center"
             android:text="Reward Points to Send:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+            app:layout_constraintTop_toBottomOf="@+id/aaStory" />
 
         <EditText
-            android:id="@+id/editText11"
+            android:id="@+id/aaPointsToSend"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="32dp"
             android:background="@color/colorVeryLightGray"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="75"
+            android:inputType="numberSigned"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView28"
-            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+            app:layout_constraintTop_toBottomOf="@+id/aaStory" />
 
         <TextView
             android:id="@+id/textView29"
@@ -155,7 +152,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
         <EditText
-            android:id="@+id/editText12"
+            android:id="@+id/aaComment"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginStart="16dp"
@@ -165,7 +162,6 @@
             android:ems="10"
             android:gravity="start"
             android:inputType="textMultiLine|textPersonName"
-            android:text="Thank you so much for all of the great memories my besetest friend of all time!"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView29" />
