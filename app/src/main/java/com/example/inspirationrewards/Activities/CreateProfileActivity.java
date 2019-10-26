@@ -75,8 +75,6 @@ public class CreateProfileActivity extends AppCompatActivity {
     private String[] aLoginData = new String[2];
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -326,12 +324,38 @@ public class CreateProfileActivity extends AppCompatActivity {
 
         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
         imageView.setImageBitmap(selectedImage);
+        doConvert(20);
 
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        selectedImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
+//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//        selectedImage.compress(Bitmap.CompressFormat.PNG, 5, byteArrayOutputStream);
+//        byte[] byteArray = byteArrayOutputStream .toByteArray();
+//        encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
+//        Log.d(TAG, "processGallery: " + encodedImage);
+
+    }
+
+    private void doConvert(int jpgQuality) {
+        if (imageView.getDrawable() == null)
+            return;
+
+        Bitmap origBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+
+        ByteArrayOutputStream bitmapAsByteArrayStream = new ByteArrayOutputStream();
+        origBitmap.compress(Bitmap.CompressFormat.JPEG, jpgQuality, bitmapAsByteArrayStream);
+        byte[] byteArray = bitmapAsByteArrayStream .toByteArray();
         encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
         Log.d(TAG, "processGallery: " + encodedImage);
+
+        String imgString = Base64.encodeToString(bitmapAsByteArrayStream.toByteArray(), Base64.DEFAULT);
+        Log.d(TAG, "doConvert: Image in Base64 size: " + imgString.length());
+
+        byte[] imageBytes = Base64.decode(imgString, Base64.DEFAULT);
+        Log.d(TAG, "doConvert: Image byte array length: " + imgString.length());
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        Log.d(TAG, "doConvert: Bitmap created from Base 64 text");
+
+        imageView.setImageBitmap(bitmap);
 
     }
 
