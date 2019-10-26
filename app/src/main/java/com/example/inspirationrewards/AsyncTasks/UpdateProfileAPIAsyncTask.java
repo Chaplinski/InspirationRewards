@@ -53,7 +53,7 @@ public class UpdateProfileAPIAsyncTask extends AsyncTask<String, Void, String> {
 
         try {
             Log.d(TAG, "doInBackground: in try block");
-            Log.d(TAG, "doInBackground: " + user.getPassword());
+            Log.d(TAG, "doInBackground: " + user.getImage());
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("studentId", studentID);
             jsonObject.put("username", user.getUsername());
@@ -66,7 +66,7 @@ public class UpdateProfileAPIAsyncTask extends AsyncTask<String, Void, String> {
             jsonObject.put("position", user.getPosition());
             jsonObject.put("admin", user.getAdmin());
             jsonObject.put("location", user.getLocation());
-            jsonObject.put("imageBytes", "Valid Image goes here");
+            jsonObject.put("imageBytes", user.getImage());
             jsonObject.put("rewardRecords", new JSONArray());
             Log.d(TAG, "doInBackground: end of try block");
 
@@ -98,10 +98,12 @@ public class UpdateProfileAPIAsyncTask extends AsyncTask<String, Void, String> {
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             connection.setRequestProperty("Accept", "application/json");
             connection.connect();
+            Log.d(TAG, "doAuth: connected");
 
             OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
             out.write(jsonObjectText);
             out.close();
+            Log.d(TAG, "doAuth: outputstream closed");
 
             int responseCode = connection.getResponseCode();
             String responseText = connection.getResponseMessage();

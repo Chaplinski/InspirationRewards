@@ -58,7 +58,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private CheckBox isAdmin;
     private File currentImageFile;
     private ImageView imageView;
-
+    private String encodedImage;
     private EditText firstName;
     private EditText lastName;
     private EditText department;
@@ -66,7 +66,6 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText story;
     private TextView charCounter;
     private String location;
-    private ImageView image;
     private Bitmap userBitmap;
     private LocationManager locationManager;
     private Criteria criteria;
@@ -111,7 +110,6 @@ public class EditProfileActivity extends AppCompatActivity {
         story = findViewById(R.id.etEPAboutUser);
         charCounter = findViewById(R.id.tvEPyourStory);
         story.addTextChangedListener(mTextEditorWatcher);
-        image = findViewById(R.id.ivCPImage);
 
         Intent intent = getIntent();
         if (intent.hasExtra("User Object")) {
@@ -131,7 +129,7 @@ public class EditProfileActivity extends AppCompatActivity {
             position.setText(user.getPosition());
             story.setText(user.getStory());
             userBitmap = StringToBitMap(user.getImage());
-            image.setImageBitmap(userBitmap);
+            imageView.setImageBitmap(userBitmap);
 
             if(user.getStory() != null) {
                 String sStoryLength = String.valueOf(user.getStory().length());
@@ -184,6 +182,7 @@ public class EditProfileActivity extends AppCompatActivity {
         updatedUser.setPosition(position.getText().toString());
         updatedUser.setStory(story.getText().toString());
         updatedUser.setLocation(location);
+        updatedUser.setImage(encodedImage);
         Log.d(TAG, "getUpdatedUser: got user");
     }
 
@@ -242,10 +241,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 //run async task updating user info
                 asyncUpdate(updatedUser);
                 //open user profile activity
-                Intent intentEditProfile = new Intent(EditProfileActivity.this, ProfileActivity.class);
-                intentEditProfile.putExtra("User Object", updatedUser);
-                intentEditProfile.putExtra("User Login Data", aLoginData);
-                startActivity(intentEditProfile);
+
             case android.R.id.home:
                 super.onBackPressed();
                 return true;
@@ -262,40 +258,14 @@ public class EditProfileActivity extends AppCompatActivity {
     public void sendResults(String result, String json) {
         Log.d(TAG, "sendResults2: " + result);
         Log.d(TAG, "sendResults2: " + json);
-////        ((TextView) findViewById(R.id.resultsText)).setText(s);
-//        Log.d(TAG, "sendResults: " + result);
-//        Log.d(TAG, "sendResults: " + json);
-//        if(result.equals("SUCCESS")){
-//            //TODO show user profile screen
-//            try {
-//                JSONObject jsonObject = new JSONObject(json);
-//                Log.d(TAG, "sendResults: " + jsonObject.getString("firstName"));
-//                user.setFirstName(jsonObject.getString("firstName"));
-//                user.setLastName(jsonObject.getString("lastName"));
-//                user.setUserName(jsonObject.getString("username"));
-//                user.setLocation(jsonObject.getString("location"));
-//                user.setDepartment(jsonObject.getString("department"));
-//                user.setPosition(jsonObject.getString("position"));
-//                user.setPointsToAward(jsonObject.getInt("pointsToAward"));
-//                user.setStory(jsonObject.getString("story"));
-//                user.setImage(jsonObject.getString("imageBytes"));
-//
-//                Intent intentNoteCreation = new Intent(LoginActivity.this, ProfileActivity.class);
-//                intentNoteCreation.putExtra("User Object", user);
-//                startActivityForResult(intentNoteCreation, PASS_USER_OBJECT_REQUEST_CODE);
-//            }catch (JSONException err){
-//                Log.d("Error", err.toString());
-//            }
-//            Log.d(TAG, "sendResults: " + json);
-//        } else{
-//
-//        }
-//
-//
-////        if(s.contains("SUCCESS")) {
-////            Intent intent = new Intent(CreateProfileActivity.this, ProfileActivity.class);
-////            startActivity(intent);
-////        }
+
+        if(result == "SUCCESS") {
+            Intent intentEditProfile = new Intent(EditProfileActivity.this, ProfileActivity.class);
+            intentEditProfile.putExtra("User Object", updatedUser);
+            intentEditProfile.putExtra("User Login Data", aLoginData);
+            startActivity(intentEditProfile);
+        }
+
     }
 
     public void picClicked(View v){

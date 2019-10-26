@@ -82,17 +82,17 @@ public class CreateProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Create Profile");
         imageView = findViewById(R.id.ivCPImage);
-        username = findViewById(R.id.etEPUserName);
-        password = findViewById(R.id.etEPLoginPassword);
-        firstName = findViewById(R.id.etEPFirstName);
-        lastName = findViewById(R.id.etEPLastName);
-        department = findViewById(R.id.etEPDepartment);
-        position = findViewById(R.id.etEPPosition);
-        aboutUser = findViewById(R.id.etEPAboutUser);
-        isAdmin = findViewById(R.id.cbEPIsAdmin);
+        username = findViewById(R.id.etCPUserName);
+        password = findViewById(R.id.etCPLoginPassword);
+        firstName = findViewById(R.id.etCPFirstName);
+        lastName = findViewById(R.id.etCPLastName);
+        department = findViewById(R.id.etCPDepartment);
+        position = findViewById(R.id.etCPPosition);
+        aboutUser = findViewById(R.id.etCPAboutUser);
+        isAdmin = findViewById(R.id.cbCPIsAdmin);
         aboutUser.addTextChangedListener(mTextEditorWatcher);
 
-        charCounter = findViewById(R.id.tvEPyourStory);
+        charCounter = findViewById(R.id.tvCPyourStory);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
