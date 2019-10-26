@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.inspirationrewards.AsyncTasks.LoginAPIAsyncTask;
 import com.example.inspirationrewards.AsyncTasks.UpdateProfileAPIAsyncTask;
@@ -91,7 +92,7 @@ public class EditProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra("User Object")) {
             user = (User)intent.getSerializableExtra("User Object");
-            Log.d(TAG, "onCreate here : " + user.getPassword());
+            Log.d(TAG, "onCreate here : " + user.getUsername());
 
             username.setFocusable(false);
             username.setClickable(false);
@@ -204,12 +205,16 @@ public class EditProfileActivity extends AppCompatActivity {
                 Intent intentEditProfile = new Intent(EditProfileActivity.this, ProfileActivity.class);
                 intentEditProfile.putExtra("User Object", updatedUser);
                 startActivity(intentEditProfile);
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     public void asyncUpdate(User updatedUser){
+        Log.d(TAG, "asyncUpdate: in async call");
         new UpdateProfileAPIAsyncTask(this, updatedUser).execute();
     }
 

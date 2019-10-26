@@ -12,10 +12,14 @@ import android.location.Criteria;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.inspirationrewards.AsyncTasks.LoginAPIAsyncTask;
 import com.example.inspirationrewards.Classes.User;
@@ -95,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                     },
                     MY_LOCATION_REQUEST_CODE_ID);
         }
+//        makeToast();
     }
 
     @Override
@@ -184,6 +189,7 @@ public class LoginActivity extends AppCompatActivity {
                 user.setDepartment(jsonObject.getString("department"));
                 user.setPosition(jsonObject.getString("position"));
                 user.setPointsToAward(jsonObject.getInt("pointsToAward"));
+                user.setAdmin(jsonObject.getBoolean("admin"));
                 user.setStory(jsonObject.getString("story"));
                 user.setImage(jsonObject.getString("imageBytes"));
 
@@ -205,6 +211,17 @@ public class LoginActivity extends AppCompatActivity {
 //            startActivity(intent);
 //        }
     }
+
+//    public void makeToast(){
+//        LayoutInflater inflater = getLayoutInflater();
+//        View layout = inflater.inflate(R.layout.toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
+//        TextView tv = layout.findViewById(R.id.toastText);
+//        tv.setText("Custom Toast Notification");
+//        Toast toast = new Toast(getApplicationContext());
+//        toast.setDuration(Toast.LENGTH_LONG);
+//        toast.setView(layout);
+//        toast.show();
+//    }
 
 
 }

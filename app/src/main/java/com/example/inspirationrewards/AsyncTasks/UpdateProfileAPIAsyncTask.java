@@ -52,10 +52,11 @@ public class UpdateProfileAPIAsyncTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
 
         try {
+            Log.d(TAG, "doInBackground: in try block");
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("studentId", studentID);
-            jsonObject.put("username", "user2");
-            jsonObject.put("password", "password");
+            jsonObject.put("username", user.getUsername());
+            jsonObject.put("password", user.getPassword());
             jsonObject.put("firstName", user.getFirstName());
             jsonObject.put("lastName", user.getLastName());
             jsonObject.put("pointsToAward", user.getPointsToAward());
@@ -66,8 +67,11 @@ public class UpdateProfileAPIAsyncTask extends AsyncTask<String, Void, String> {
             jsonObject.put("location", user.getLocation());
             jsonObject.put("imageBytes", "Valid Image goes here");
             jsonObject.put("rewardRecords", new JSONArray());
+            Log.d(TAG, "doInBackground: end of try block");
+
 
             return doAuth(jsonObject.toString());
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +84,7 @@ public class UpdateProfileAPIAsyncTask extends AsyncTask<String, Void, String> {
         BufferedReader reader = null;
 
         try {
-
+            Log.d(TAG, "doAuth: in try block");
             String urlString = EditProfileActivity.getResources().getString(R.string.base_url) + editProfileEndPoint;
 
 
@@ -113,9 +117,12 @@ public class UpdateProfileAPIAsyncTask extends AsyncTask<String, Void, String> {
                 while (null != (line = reader.readLine())) {
                     result.append(line).append("\n");
                 }
+                Log.d(TAG, "doAuth: in try block http ok");
 
                 return result.toString();
             } else {
+
+                Log.d(TAG, "doAuth: in try block http 401");
 
                 reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
 

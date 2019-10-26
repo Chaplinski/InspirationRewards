@@ -43,7 +43,7 @@ public class CreateProfileAPIAsyncTask extends AsyncTask<String, Void, String> {
             result = "FAILED";
         else
             result = "SUCCESS";
-        createProfileActivity.sendResults(result + "\n" + connectionResult);
+        createProfileActivity.sendResults(result, connectionResult);
     }
 
     @Override

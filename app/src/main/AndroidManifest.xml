@@ -21,11 +21,14 @@
 
         </activity>
         <activity android:name=".Activities.LeaderboardActivity"></activity>
-        <activity android:name=".Activities.EditProfileActivity"></activity>
+        <activity
+            android:name=".Activities.EditProfileActivity"></activity>
         <activity android:name=".Activities.ProfileActivity" >
 
         </activity>
-        <activity android:name=".Activities.CreateProfileActivity" >
+        <activity
+            android:name=".Activities.CreateProfileActivity"
+            android:parentActivityName=".Activities.LoginActivity">
 
         </activity>
         <activity android:name=".Activities.LoginActivity">

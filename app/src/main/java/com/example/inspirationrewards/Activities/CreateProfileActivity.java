@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -145,7 +146,6 @@ public class CreateProfileActivity extends AppCompatActivity {
         String sStory = aboutUser.getText().toString();
 //        location =
         boolean bIsAdmin = isAdmin.isChecked();
-
 
         user.setUserName(sUserName);
         user.setPassword(sPassword);
@@ -397,9 +397,10 @@ public class CreateProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void sendResults(String s) {
+    public void sendResults(String result, String json) {
 //        ((TextView) findViewById(R.id.resultsText)).setText(s);
-        Log.d(TAG, "sendResults: " + s);
+        Log.d(TAG, "sendResults: " + result);
+        Log.d(TAG, "sendResults: " + json);
 
 
 //        if(s.contains("SUCCESS")) {
