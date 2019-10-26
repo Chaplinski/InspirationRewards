@@ -105,6 +105,10 @@ public class AwardActivity extends AppCompatActivity {
                         // Do nothing but close the dialog
                         String[] aData = getData();
                         asyncAddRewards(user, aData, aLoginData);
+                        Intent leaderboardIntent = new Intent(AwardActivity.this, LeaderboardActivity.class);
+                        leaderboardIntent.putExtra("User Login Data", aLoginData);
+                        startActivity(leaderboardIntent);
+
                     }
                 });
 

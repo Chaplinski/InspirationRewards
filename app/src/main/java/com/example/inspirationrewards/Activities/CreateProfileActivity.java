@@ -202,13 +202,10 @@ public class CreateProfileActivity extends AppCompatActivity {
     }
 
     public void picClicked(View v){
-        if (ActivityCompat.checkSelfPermission(CreateProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(CreateProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_IMAGE_GALLERY);
-
-        }
-        if (ActivityCompat.checkSelfPermission(CreateProfileActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(CreateProfileActivity.this, new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
-        }
+//        if (ActivityCompat.checkSelfPermission(CreateProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(CreateProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_IMAGE_GALLERY);
+//
+//        }
         createPictureDialog();
 //        PermissionDialog dialog = new PermissionDialog();
 //        dialog.show(getSupportFragmentManager(), "Permission Dialog");
@@ -238,18 +235,18 @@ public class CreateProfileActivity extends AppCompatActivity {
 
     public void useCamera(){
         try {
-            if (ActivityCompat.checkSelfPermission(CreateProfileActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(CreateProfileActivity.this, new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
-                Toast.makeText(this, "If Camera", Toast.LENGTH_SHORT).show();
-
-            } else {
-                Toast.makeText(this, "Else Camera", Toast.LENGTH_SHORT).show();
+//            if (ActivityCompat.checkSelfPermission(CreateProfileActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//                ActivityCompat.requestPermissions(CreateProfileActivity.this, new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
+//                Toast.makeText(this, "If Camera", Toast.LENGTH_SHORT).show();
+//
+//            } else {
+//                Toast.makeText(this, "Else Camera", Toast.LENGTH_SHORT).show();
 
                 currentImageFile = new File(getExternalCacheDir(), "appimage_" + System.currentTimeMillis() + ".jpg");
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(currentImageFile));
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
+//            }
 //            Toast.makeText(this, "Working", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
