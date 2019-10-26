@@ -18,7 +18,7 @@
         android:text="Administrator User"
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivTPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
         app:layout_constraintTop_toBottomOf="@+id/etEPLoginPassword" />
 
     <EditText
@@ -37,7 +37,7 @@
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.384"
-        app:layout_constraintStart_toEndOf="@+id/ivTPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
         app:layout_constraintTop_toBottomOf="@+id/etEPUserName" />
 
     <EditText
@@ -55,7 +55,7 @@
         android:textColor="@android:color/black"
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivTPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -74,7 +74,7 @@
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/ivTPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
         app:layout_constraintTop_toBottomOf="@+id/cbEPIsAdmin" />
 
     <EditText
@@ -93,7 +93,7 @@
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ivTPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
         app:layout_constraintTop_toBottomOf="@+id/etEPFirstName" />
 
     <EditText
@@ -160,12 +160,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tvEPyourStory" />
 
     <ImageView
-        android:id="@+id/ivTPImage"
+        android:id="@+id/ivEPImage"
         android:layout_width="141dp"
         android:layout_height="200dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
+        android:onClick="picClicked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/default_photo" />

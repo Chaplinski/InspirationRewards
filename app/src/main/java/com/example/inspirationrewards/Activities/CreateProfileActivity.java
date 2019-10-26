@@ -81,7 +81,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_with_logo);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Create Profile");
-        imageView = findViewById(R.id.ivTPImage);
+        imageView = findViewById(R.id.ivCPImage);
         username = findViewById(R.id.etEPUserName);
         password = findViewById(R.id.etEPLoginPassword);
         firstName = findViewById(R.id.etEPFirstName);
@@ -191,13 +191,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     }
 
     public void picClicked(View v){
-//        if (ActivityCompat.checkSelfPermission(CreateProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(CreateProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_IMAGE_GALLERY);
-//
-//        }
         createPictureDialog();
-//        PermissionDialog dialog = new PermissionDialog();
-//        dialog.show(getSupportFragmentManager(), "Permission Dialog");
     }
 
     public void useGallery(){

@@ -8,7 +8,7 @@
     tools:context=".Activities.CreateProfileActivity">
 
     <CheckBox
-        android:id="@+id/cbEPIsAdmin"
+        android:id="@+id/cbCPIsAdmin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -18,11 +18,11 @@
         android:text="Administrator User"
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivTPImage"
-        app:layout_constraintTop_toBottomOf="@+id/etEPLoginPassword" />
+        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
+        app:layout_constraintTop_toBottomOf="@+id/etCPLoginPassword" />
 
     <EditText
-        android:id="@+id/etEPLoginPassword"
+        android:id="@+id/etCPLoginPassword"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="24dp"
@@ -37,11 +37,11 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.384"
-        app:layout_constraintStart_toEndOf="@+id/ivTPImage"
-        app:layout_constraintTop_toBottomOf="@+id/etEPUserName" />
+        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
+        app:layout_constraintTop_toBottomOf="@+id/etCPUserName" />
 
     <EditText
-        android:id="@+id/etEPUserName"
+        android:id="@+id/etCPUserName"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="24dp"
@@ -55,11 +55,11 @@
         android:textColorHint="@color/colorPrimary"
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivTPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etEPFirstName"
+        android:id="@+id/etCPFirstName"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="24dp"
@@ -74,11 +74,11 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/ivTPImage"
-        app:layout_constraintTop_toBottomOf="@+id/cbEPIsAdmin" />
+        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
+        app:layout_constraintTop_toBottomOf="@+id/cbCPIsAdmin" />
 
     <EditText
-        android:id="@+id/etEPLastName"
+        android:id="@+id/etCPLastName"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="24dp"
@@ -93,8 +93,8 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ivTPImage"
-        app:layout_constraintTop_toBottomOf="@+id/etEPFirstName" />
+        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
+        app:layout_constraintTop_toBottomOf="@+id/etCPFirstName" />
 
     <TextView
         android:id="@+id/textView2"
@@ -105,10 +105,10 @@
         android:text="Department:"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etEPDepartment" />
+        app:layout_constraintTop_toTopOf="@+id/etCPDepartment" />
 
     <EditText
-        android:id="@+id/etEPDepartment"
+        android:id="@+id/etCPDepartment"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -123,7 +123,7 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/etEPLastName" />
+        app:layout_constraintTop_toBottomOf="@+id/etCPLastName" />
 
     <TextView
         android:id="@+id/textView3"
@@ -135,10 +135,10 @@
         android:text="Position:"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEPDepartment" />
+        app:layout_constraintTop_toBottomOf="@+id/etCPDepartment" />
 
     <EditText
-        android:id="@+id/etEPPosition"
+        android:id="@+id/etCPPosition"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -154,10 +154,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/etEPDepartment" />
+        app:layout_constraintTop_toBottomOf="@+id/etCPDepartment" />
 
     <TextView
-        android:id="@+id/tvEPyourStory"
+        android:id="@+id/tvCPyourStory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -170,7 +170,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <ImageView
-        android:id="@+id/ivTPImage"
+        android:id="@+id/ivCPImage"
         android:layout_width="141dp"
         android:layout_height="200dp"
         android:layout_marginStart="16dp"
@@ -182,7 +182,7 @@
         app:srcCompat="@drawable/default_photo" />
 
     <EditText
-        android:id="@+id/etEPAboutUser"
+        android:id="@+id/etCPAboutUser"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -205,5 +205,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEPyourStory" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCPyourStory" />
 </androidx.constraintlayout.widget.ConstraintLayout>

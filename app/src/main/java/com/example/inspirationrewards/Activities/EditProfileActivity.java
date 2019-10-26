@@ -1,40 +1,48 @@
 package com.example.inspirationrewards.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.inspirationrewards.AsyncTasks.LoginAPIAsyncTask;
 import com.example.inspirationrewards.AsyncTasks.UpdateProfileAPIAsyncTask;
 import com.example.inspirationrewards.Classes.User;
 import com.example.inspirationrewards.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 
@@ -48,6 +56,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
     private CheckBox isAdmin;
+    private File currentImageFile;
+    private ImageView imageView;
+
     private EditText firstName;
     private EditText lastName;
     private EditText department;
@@ -59,6 +70,10 @@ public class EditProfileActivity extends AppCompatActivity {
     private Bitmap userBitmap;
     private LocationManager locationManager;
     private Criteria criteria;
+    private String[] aLoginData = new String[2];
+    private static final int REQUEST_IMAGE_GALLERY = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 2;
+
 
 
 
@@ -84,6 +99,8 @@ public class EditProfileActivity extends AppCompatActivity {
         criteria.setBearingRequired(false);
         criteria.setSpeedRequired(false);
 
+        imageView = findViewById(R.id.ivEPImage);
+
         username = findViewById(R.id.etEPUserName);
         password = findViewById(R.id.etEPLoginPassword);
         isAdmin = findViewById(R.id.cbEPIsAdmin);
@@ -94,18 +111,19 @@ public class EditProfileActivity extends AppCompatActivity {
         story = findViewById(R.id.etEPAboutUser);
         charCounter = findViewById(R.id.tvEPyourStory);
         story.addTextChangedListener(mTextEditorWatcher);
-        image = findViewById(R.id.ivTPImage);
+        image = findViewById(R.id.ivCPImage);
 
         Intent intent = getIntent();
         if (intent.hasExtra("User Object")) {
             user = (User)intent.getSerializableExtra("User Object");
+            aLoginData = intent.getStringArrayExtra("User Login Data");
             Log.d(TAG, "onCreate here : " + user.getUsername());
 
             username.setFocusable(false);
             username.setClickable(false);
             username.setEnabled(false);
             username.setText(user.getUsername());
-            password.setText(user.getPassword());
+            password.setText(aLoginData[1]);
             isAdmin.setChecked(user.getAdmin());
             firstName.setText(user.getFirstName());
             lastName.setText(user.getLastName());
@@ -166,6 +184,7 @@ public class EditProfileActivity extends AppCompatActivity {
         updatedUser.setPosition(position.getText().toString());
         updatedUser.setStory(story.getText().toString());
         updatedUser.setLocation(location);
+        Log.d(TAG, "getUpdatedUser: got user");
     }
 
     public String getLocation(){
@@ -225,6 +244,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 //open user profile activity
                 Intent intentEditProfile = new Intent(EditProfileActivity.this, ProfileActivity.class);
                 intentEditProfile.putExtra("User Object", updatedUser);
+                intentEditProfile.putExtra("User Login Data", aLoginData);
                 startActivity(intentEditProfile);
             case android.R.id.home:
                 super.onBackPressed();
@@ -276,5 +296,155 @@ public class EditProfileActivity extends AppCompatActivity {
 ////            Intent intent = new Intent(CreateProfileActivity.this, ProfileActivity.class);
 ////            startActivity(intent);
 ////        }
+    }
+
+    public void picClicked(View v){
+        createPictureDialog();
+    }
+
+    public void createPictureDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Profile Picture");
+        builder.setMessage("Take picture from:");
+        builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing but close the dialog
+                useCamera();
+
+            }
+        });
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing but close the dialog
+
+            }
+        });
+
+        builder.setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing but close the dialog
+                useGallery();
+            }
+        });
+
+        builder.setIcon(R.drawable.logo);
+        AlertDialog alert = builder.create();
+        alert.show();
+
+    }
+
+    public void useCamera(){
+        currentImageFile = new File(getExternalCacheDir(), "appimage_" + System.currentTimeMillis() + ".jpg");
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(currentImageFile));
+        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+    }
+
+    public void useGallery(){
+        try {
+            if (ActivityCompat.checkSelfPermission(EditProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(EditProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_IMAGE_GALLERY);
+
+            } else {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, REQUEST_IMAGE_GALLERY);
+            }
+//            Toast.makeText(this, "Working", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult: in here");
+
+        if (requestCode == REQUEST_IMAGE_GALLERY && resultCode == RESULT_OK) {
+            try {
+                processGallery(data);
+            } catch (Exception e) {
+                Toast.makeText(this, "onActivityResult: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            try {
+                processCamera();
+            } catch (Exception e) {
+                Toast.makeText(this, "onActivityResult: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void processCamera() {
+        Uri selectedImage = Uri.fromFile(currentImageFile);
+        imageView.setImageURI(selectedImage);
+        Bitmap bm = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        imageView.setImageBitmap(bm);
+        doConvert(20);
+        Log.d(TAG, "processCamera: converted");
+//        makeCustomToast(this,
+//                String.format(Locale.getDefault(),
+//                        "Camera Image Size:%n%,d bytes", bm.getByteCount()),
+//                Toast.LENGTH_LONG);
+    }
+
+
+    private void processGallery(Intent data) {
+        Uri galleryImageUri = data.getData();
+        if (galleryImageUri == null)
+            return;
+
+        InputStream imageStream = null;
+        try {
+            imageStream = getContentResolver().openInputStream(galleryImageUri);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+        imageView.setImageBitmap(selectedImage);
+        doConvert(20);
+
+//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//        selectedImage.compress(Bitmap.CompressFormat.PNG, 5, byteArrayOutputStream);
+//        byte[] byteArray = byteArrayOutputStream .toByteArray();
+//        encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
+//        Log.d(TAG, "processGallery: " + encodedImage);
+
+    }
+
+    private void doConvert(int jpgQuality) {
+        Log.d(TAG, "doConvert: in here");
+        if (imageView.getDrawable() == null)
+            return;
+
+        Bitmap origBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+
+        ByteArrayOutputStream bitmapAsByteArrayStream = new ByteArrayOutputStream();
+        origBitmap.compress(Bitmap.CompressFormat.JPEG, jpgQuality, bitmapAsByteArrayStream);
+        byte[] byteArray = bitmapAsByteArrayStream .toByteArray();
+        encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        Log.d(TAG, "processGallery: " + encodedImage);
+
+        String imgString = Base64.encodeToString(bitmapAsByteArrayStream.toByteArray(), Base64.DEFAULT);
+        Log.d(TAG, "doConvert: Image in Base64 size: " + imgString.length());
+
+        byte[] imageBytes = Base64.decode(imgString, Base64.DEFAULT);
+        Log.d(TAG, "doConvert: Image byte array length: " + imgString.length());
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        Log.d(TAG, "doConvert: Bitmap created from Base 64 text");
+
+        imageView.setImageBitmap(bitmap);
+
     }
 }

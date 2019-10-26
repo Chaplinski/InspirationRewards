@@ -108,6 +108,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if(sTitle.equals("Edit")) {
                     Intent intentEditProfile = new Intent(ProfileActivity.this, EditProfileActivity.class);
                     intentEditProfile.putExtra("User Object", user);
+                    intentEditProfile.putExtra("User Login Data", aLoginData);
                     startActivity(intentEditProfile);
                 }
             case R.id.menuViewLeaderboard:

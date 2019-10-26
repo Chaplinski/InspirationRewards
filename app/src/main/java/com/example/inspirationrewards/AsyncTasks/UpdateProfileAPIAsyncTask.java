@@ -53,6 +53,7 @@ public class UpdateProfileAPIAsyncTask extends AsyncTask<String, Void, String> {
 
         try {
             Log.d(TAG, "doInBackground: in try block");
+            Log.d(TAG, "doInBackground: " + user.getPassword());
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("studentId", studentID);
             jsonObject.put("username", user.getUsername());
