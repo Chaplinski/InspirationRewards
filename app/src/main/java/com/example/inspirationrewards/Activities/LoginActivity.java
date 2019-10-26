@@ -8,6 +8,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -99,7 +100,6 @@ public class LoginActivity extends AppCompatActivity {
                     },
                     MY_LOCATION_REQUEST_CODE_ID);
         }
-//        makeToast();
     }
 
     @Override
@@ -211,17 +211,4 @@ public class LoginActivity extends AppCompatActivity {
 //            startActivity(intent);
 //        }
     }
-
-//    public void makeToast(){
-//        LayoutInflater inflater = getLayoutInflater();
-//        View layout = inflater.inflate(R.layout.toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
-//        TextView tv = layout.findViewById(R.id.toastText);
-//        tv.setText("Custom Toast Notification");
-//        Toast toast = new Toast(getApplicationContext());
-//        toast.setDuration(Toast.LENGTH_LONG);
-//        toast.setView(layout);
-//        toast.show();
-//    }
-
-
 }

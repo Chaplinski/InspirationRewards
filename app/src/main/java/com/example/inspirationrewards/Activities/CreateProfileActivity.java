@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Criteria;
@@ -70,6 +71,8 @@ public class CreateProfileActivity extends AppCompatActivity {
     private CheckBox isAdmin;
     private String location;
     User user = new User();
+    private String[] aLoginData = new String[2];
+
 
 
 
@@ -397,15 +400,35 @@ public class CreateProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void sendResults(String result, String json) {
+    public void sendResults(String result, String json, User user, String[] aLoginData) {
 //        ((TextView) findViewById(R.id.resultsText)).setText(s);
         Log.d(TAG, "sendResults: " + result);
         Log.d(TAG, "sendResults: " + json);
+        if(result.equals("SUCCESS")){
+            this.aLoginData[0] = aLoginData[0];
+            this.aLoginData[1] = aLoginData[1];
+            makeCustomToast(this, "User Create Successful", Toast.LENGTH_LONG);
+            Intent profileIntent = new Intent(CreateProfileActivity.this, ProfileActivity.class);
+            profileIntent.putExtra("User Object", user);
+            profileIntent.putExtra("User Login Data", this.aLoginData);
+            startActivity(profileIntent);
+
+        }
 
 
 //        if(s.contains("SUCCESS")) {
 //            Intent intent = new Intent(CreateProfileActivity.this, ProfileActivity.class);
 //            startActivity(intent);
 //        }
+    }
+
+    public static void makeCustomToast(Context context, String message, int time) {
+        Toast toast = Toast.makeText(context, message, time);
+        View toastView = toast.getView();
+        toastView.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+        TextView tv = toast.getView().findViewById(android.R.id.message);
+        tv.setPadding(50, 25, 50, 25);
+        tv.setTextColor(Color.WHITE);
+        toast.show();
     }
 }

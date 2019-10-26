@@ -27,6 +27,8 @@ public class CreateProfileAPIAsyncTask extends AsyncTask<String, Void, String> {
     private final int studentID = 20452745;
     private CreateProfileActivity createProfileActivity;
     private User user;
+    private String[] aLoginData = new String[2];
+
 
     public CreateProfileAPIAsyncTask(CreateProfileActivity cPA, User user){
         createProfileActivity = cPA;
@@ -39,11 +41,16 @@ public class CreateProfileAPIAsyncTask extends AsyncTask<String, Void, String> {
         // Normally we would parse the results and make use of the data
         // For this example, we just return the raw json
         String result;
-        if (connectionResult.contains("error")) // If there is "error" in the results...
+        if (connectionResult.contains("error")) { // If there is "error" in the results...
             result = "FAILED";
-        else
+        }
+        else {
             result = "SUCCESS";
-        createProfileActivity.sendResults(result, connectionResult);
+            aLoginData[0] = user.getUsername();
+            aLoginData[1] = user.getPassword();
+
+        }
+        createProfileActivity.sendResults(result, connectionResult, user, aLoginData);
     }
 
     @Override
