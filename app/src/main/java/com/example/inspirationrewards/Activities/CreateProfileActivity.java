@@ -41,6 +41,7 @@ import com.example.inspirationrewards.AsyncTasks.CreateProfileAPIAsyncTask;
 import com.example.inspirationrewards.Classes.User;
 import com.example.inspirationrewards.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 2;
     private ImageView imageView;
     private File currentImageFile;
-    private Base64 imageToSave;
+    private String encodedImage;
     private EditText username;
     private EditText password;
     private EditText firstName;
@@ -156,6 +157,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         user.setLastName(sLastName);
         user.setDepartment(sDepartment);
         user.setPosition(sPosition);
+        user.setImage(encodedImage);
         user.setStory(sStory);
         user.setLocation(location);
         user.setAdmin(bIsAdmin);
@@ -179,20 +181,8 @@ public class CreateProfileActivity extends AppCompatActivity {
                 addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
                 for (Address ad : addresses) {
-                    Log.d(TAG, "getLocation: in for loop");
-
-//                    String a = String.format("%s %s %s %s %s %s",
-//                            (ad.getSubThoroughfare() == null ? "" : ad.getSubThoroughfare()),
-//                            (ad.getThoroughfare() == null ? "" : ad.getThoroughfare()),
-//                            (ad.getLocality() == null ? "" : ad.getLocality()),
-//                            (ad.getAdminArea() == null ? "" : ad.getAdminArea()),
-//                            (ad.getPostalCode() == null ? "" : ad.getPostalCode()),
-//                            (ad.getCountryName() == null ? "" : ad.getCountryName()));
-
-                    Log.d(TAG, "getLocation: " + ad.getLocality() + ", " + ad.getAdminArea());
                     return ad.getLocality() + ", " + ad.getAdminArea();
                 }
-
 
             } catch (IOException e){
 
@@ -257,7 +247,6 @@ public class CreateProfileActivity extends AppCompatActivity {
     }
 
     public void createPictureDialog(){
-        Toast.makeText(this, "IN IT", Toast.LENGTH_SHORT).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Profile Picture");
@@ -337,10 +326,12 @@ public class CreateProfileActivity extends AppCompatActivity {
 
         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
         imageView.setImageBitmap(selectedImage);
-//        makeCustomToast(this,
-//                String.format(Locale.getDefault(),
-//                        "Gallery Image Size:%n%,d bytes", selectedImage.getByteCount()),
-//                Toast.LENGTH_LONG);
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        selectedImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        Log.d(TAG, "processGallery: " + encodedImage);
 
     }
 

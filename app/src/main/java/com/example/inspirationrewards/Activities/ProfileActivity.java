@@ -5,10 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +38,8 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView position;
     private TextView pointsToAward;
     private TextView story;
+    private ImageView image;
+    private Bitmap userBitmap;
     private String[] aLoginData = new String[2];
 
     @Override
@@ -49,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
         position = findViewById(R.id.tvPosition);
         pointsToAward = findViewById(R.id.tvPointsToAward);
         story = findViewById(R.id.tvStory);
+        image = findViewById(R.id.profileImage);
         Intent intent = getIntent();
         aLoginData = intent.getStringArrayExtra("User Login Data");
         Log.d(TAG, "onCreate: " + aLoginData[0]);
@@ -66,8 +75,23 @@ public class ProfileActivity extends AppCompatActivity {
             String sPointsToAward = Integer.toString(user.getPointsToAward());
             pointsToAward.setText(sPointsToAward);
             story.setText(user.getStory());
+
+            userBitmap = StringToBitMap(user.getImage());
+            image.setImageBitmap(userBitmap);
         }
 
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try{
+            byte [] encodeByte = Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }
+        catch(Exception e){
+            e.getMessage();
+            return null;
+        }
     }
 
     @Override

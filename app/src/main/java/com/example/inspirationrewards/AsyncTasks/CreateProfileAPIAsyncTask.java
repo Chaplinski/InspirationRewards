@@ -69,9 +69,11 @@ public class CreateProfileAPIAsyncTask extends AsyncTask<String, Void, String> {
             jsonObject.put("position", user.getPosition());
             jsonObject.put("admin", user.getAdmin());
             jsonObject.put("location", user.getLocation());
-            jsonObject.put("imageBytes", "Test Image");
+            jsonObject.put("imageBytes", user.getImage());
             jsonObject.put("rewardRecords", new JSONArray());
 
+            Log.d(TAG, "doInBackground: image - " + user.getImage());
+            Log.d(TAG, "doInBackground: end of try block");
             return doAuth(jsonObject.toString());
 
         } catch (Exception e) {
