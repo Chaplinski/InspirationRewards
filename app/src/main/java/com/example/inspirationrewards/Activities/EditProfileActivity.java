@@ -6,6 +6,8 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -14,11 +16,13 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +55,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText story;
     private TextView charCounter;
     private String location;
+    private ImageView image;
+    private Bitmap userBitmap;
     private LocationManager locationManager;
     private Criteria criteria;
 
@@ -88,6 +94,7 @@ public class EditProfileActivity extends AppCompatActivity {
         story = findViewById(R.id.etEPAboutUser);
         charCounter = findViewById(R.id.tvEPyourStory);
         story.addTextChangedListener(mTextEditorWatcher);
+        image = findViewById(R.id.ivTPImage);
 
         Intent intent = getIntent();
         if (intent.hasExtra("User Object")) {
@@ -105,6 +112,8 @@ public class EditProfileActivity extends AppCompatActivity {
             department.setText(user.getDepartment());
             position.setText(user.getPosition());
             story.setText(user.getStory());
+            userBitmap = StringToBitMap(user.getImage());
+            image.setImageBitmap(userBitmap);
 
             if(user.getStory() != null) {
                 String sStoryLength = String.valueOf(user.getStory().length());
@@ -117,6 +126,18 @@ public class EditProfileActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try{
+            byte [] encodeByte = Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }
+        catch(Exception e){
+            e.getMessage();
+            return null;
+        }
     }
 
     private final TextWatcher mTextEditorWatcher = new TextWatcher() {

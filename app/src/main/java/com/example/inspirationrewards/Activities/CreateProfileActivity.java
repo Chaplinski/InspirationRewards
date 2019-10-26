@@ -6,7 +6,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -82,7 +81,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_with_logo);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Create Profile");
-        imageView = findViewById(R.id.imageView);
+        imageView = findViewById(R.id.ivTPImage);
         username = findViewById(R.id.etEPUserName);
         password = findViewById(R.id.etEPLoginPassword);
         firstName = findViewById(R.id.etEPFirstName);
@@ -173,13 +172,15 @@ public class CreateProfileActivity extends AppCompatActivity {
                 Geocoder geocoder = new Geocoder(this, Locale.getDefault());
                 Location currentLocation = locationManager.getLastKnownLocation(bestProvider);
 
-                double latitude = currentLocation.getLatitude();
-                double longitude = currentLocation.getLongitude();
+                if(currentLocation != null) {
+                    double latitude = currentLocation.getLatitude();
+                    double longitude = currentLocation.getLongitude();
 
-                addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                    addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
-                for (Address ad : addresses) {
-                    return ad.getLocality() + ", " + ad.getAdminArea();
+                    for (Address ad : addresses) {
+                        return ad.getLocality() + ", " + ad.getAdminArea();
+                    }
                 }
 
             } catch (IOException e){
@@ -222,25 +223,10 @@ public class CreateProfileActivity extends AppCompatActivity {
     }
 
     public void useCamera(){
-        try {
-//            if (ActivityCompat.checkSelfPermission(CreateProfileActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//                ActivityCompat.requestPermissions(CreateProfileActivity.this, new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
-//                Toast.makeText(this, "If Camera", Toast.LENGTH_SHORT).show();
-//
-//            } else {
-//                Toast.makeText(this, "Else Camera", Toast.LENGTH_SHORT).show();
-
-                currentImageFile = new File(getExternalCacheDir(), "appimage_" + System.currentTimeMillis() + ".jpg");
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(currentImageFile));
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//            }
-//            Toast.makeText(this, "Working", Toast.LENGTH_SHORT).show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
-        }
+        currentImageFile = new File(getExternalCacheDir(), "appimage_" + System.currentTimeMillis() + ".jpg");
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(currentImageFile));
+        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
 
     }
 
@@ -281,6 +267,7 @@ public class CreateProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult: in here");
 
         if (requestCode == REQUEST_IMAGE_GALLERY && resultCode == RESULT_OK) {
             try {
@@ -303,6 +290,9 @@ public class CreateProfileActivity extends AppCompatActivity {
         Uri selectedImage = Uri.fromFile(currentImageFile);
         imageView.setImageURI(selectedImage);
         Bitmap bm = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        imageView.setImageBitmap(bm);
+        doConvert(20);
+        Log.d(TAG, "processCamera: converted");
 //        makeCustomToast(this,
 //                String.format(Locale.getDefault(),
 //                        "Camera Image Size:%n%,d bytes", bm.getByteCount()),
@@ -335,6 +325,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     }
 
     private void doConvert(int jpgQuality) {
+        Log.d(TAG, "doConvert: in here");
         if (imageView.getDrawable() == null)
             return;
 
