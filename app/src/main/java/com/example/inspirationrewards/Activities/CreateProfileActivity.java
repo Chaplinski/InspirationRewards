@@ -158,6 +158,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         user.setStory(sStory);
         user.setLocation(location);
         user.setAdmin(bIsAdmin);
+        Log.d(TAG, "createUserObject: user created");
     }
 
     public String getLocation(){

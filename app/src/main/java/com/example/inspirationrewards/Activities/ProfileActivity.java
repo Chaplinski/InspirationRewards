@@ -19,12 +19,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.inspirationrewards.AsyncTasks.GetAllProfilesAPIAsyncTask;
+import com.example.inspirationrewards.Classes.Reward;
 import com.example.inspirationrewards.Classes.User;
 import com.example.inspirationrewards.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -41,6 +45,8 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView image;
     private Bitmap userBitmap;
     private String[] aLoginData = new String[2];
+    private List<Reward> aRewards = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +81,9 @@ public class ProfileActivity extends AppCompatActivity {
             String sPointsToAward = Integer.toString(user.getPointsToAward());
             pointsToAward.setText(sPointsToAward);
             story.setText(user.getStory());
+            Bundle args = intent.getBundleExtra("BUNDLE");
+            aRewards = (ArrayList<Reward>) args.getSerializable("Rewardlist");
+            Log.d(TAG, "onCreate: " + aRewards.size());
 
             userBitmap = StringToBitMap(user.getImage());
             image.setImageBitmap(userBitmap);

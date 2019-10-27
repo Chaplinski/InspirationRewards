@@ -1,6 +1,8 @@
 package com.example.inspirationrewards.Classes;
 
-public class Reward {
+import java.io.Serializable;
+
+public class Reward implements Serializable {
 
     private String sTargetUserName;
     private String sTargetName;
@@ -8,7 +10,7 @@ public class Reward {
     private String sNotes;
     private int iRewardPoints;
 
-    private String sSourceUserName;
+    private String sSourceName;
     private String sSourcePassword;
 
     public String getTargetUserName(){ return sTargetUserName; }
@@ -31,9 +33,9 @@ public class Reward {
 
     public void setRewardPoints(int points){ iRewardPoints = points; }
 
-    public String getSourceUserName(){ return sSourceUserName; }
+    public String getSourceName(){ return sSourceName; }
 
-    public void setSourceUserName(String incomingUserName){ sSourceUserName = incomingUserName; }
+    public void setSourceName(String incomingName){ sSourceName = incomingName; }
 
     public String getSourcePassword(){ return sSourcePassword; }
 
