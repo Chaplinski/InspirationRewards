@@ -70,7 +70,9 @@ public class AwardActivity extends AppCompatActivity {
             user = (User)intent.getSerializableExtra("User Object");
 
             name.setText(user.getLastName() + ", " + user.getFirstName());
-            pointsAwarded.setText("0");
+            int iPoints = user.getPointsAwarded();
+            String sPoints = Integer.toString(iPoints);
+            pointsAwarded.setText(sPoints);
             department.setText(user.getDepartment());
             position.setText(user.getPosition());
             story.setText(user.getStory());

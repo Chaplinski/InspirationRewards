@@ -21,6 +21,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class LeaderboardActivity extends AppCompatActivity implements View.OnClickListener {
@@ -66,7 +68,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
             for (int i = 0; i < jsonArray.length(); i++) {
                 User user = new User();
                 JSONObject explrObject = jsonArray.getJSONObject(i);
-                Log.d(TAG, "sendResultsLeaderboard: " + explrObject);
+                Log.d(TAG, "sendResultsLeaderboard: " + explrObject.getString("rewards"));
                 String sJSONUserName = explrObject.getString("username");
                 user.setFirstName(explrObject.getString("firstName"));
                 user.setLastName(explrObject.getString("lastName"));
@@ -78,19 +80,46 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
                 user.setStory(explrObject.getString("story"));
                 Log.d(TAG, "sendResults: " + explrObject.getString("imageBytes"));
                 user.setImage(explrObject.getString("imageBytes"));
-                user.setPointsAwarded(0);
+
+                try {
+                    String sAwards = explrObject.getString("rewards");
+                    JSONArray jsonaRewards = new JSONArray(sAwards);
+                    int iTotalReward = 0;
+
+                    for(int j=0; j < jsonaRewards.length(); j++){
+                        JSONObject jsonoReward = jsonaRewards.getJSONObject(j);
+                        int iValue = jsonoReward.getInt("value");
+                        iTotalReward += iValue;
+                    }
+
+                    user.setPointsAwarded(iTotalReward);
+
+                }catch(JSONException e){
+
+                }
+
+
                 aUsers.add(user);
 
 
 
 
             }
+            sortUserList();
             mAdapter.notifyDataSetChanged();
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
            // setViews();
         } catch (JSONException e){
             Log.e("MYAPP", "unexpected JSON exception", e);
         }
+    }
+
+    public void sortUserList(){
+        Collections.sort(aUsers, new Comparator<User>() {
+            public int compare(User u1, User u2) {
+                return Integer.compare(u2.getPointsAwarded(), u1.getPointsAwarded());
+            }
+        });
     }
 
     @Override
