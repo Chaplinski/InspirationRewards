@@ -31,6 +31,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
     private UserAdapter mAdapter;
     private List<User> aUsers = new ArrayList<>();
     private String[] aLoginData = new String[2];
+    private String currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
         setTitle("Inspiration Leaderboard");
         Intent intent = getIntent();
         aLoginData = intent.getStringArrayExtra("User Login Data");
+        currentUser = intent.getStringExtra("Current User");
 
         recyclerView = findViewById(R.id.userRecycler);
         mAdapter = new UserAdapter(aUsers, this);
@@ -51,7 +53,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void asyncGetAllProfiles(){
-        new GetAllProfilesAPIAsyncTask(this).execute();
+        new GetAllProfilesAPIAsyncTask(this, aLoginData).execute();
     }
 
     public void sendResults(String result, String json) {
@@ -108,6 +110,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
         Intent intentAwardActivity = new Intent(LeaderboardActivity.this, AwardActivity.class);
         intentAwardActivity.putExtra("User Object", aUsers.get(position));
         intentAwardActivity.putExtra("User Login Data", aLoginData);
+        intentAwardActivity.putExtra("Current User", currentUser);
         startActivity(intentAwardActivity);
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
     }

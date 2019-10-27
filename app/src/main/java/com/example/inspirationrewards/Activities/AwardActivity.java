@@ -40,6 +40,7 @@ public class AwardActivity extends AppCompatActivity {
     private EditText comment;
     private Bitmap userBitmap;
     private String[] aLoginData = new String[2];
+    private String currentUser;
 
 
     @Override
@@ -51,6 +52,7 @@ public class AwardActivity extends AppCompatActivity {
         Intent intent = getIntent();
         intent.getStringArrayExtra("User Login Data");
         aLoginData = intent.getStringArrayExtra("User Login Data");
+        currentUser = intent.getStringExtra("Current User");
 
         name = findViewById(R.id.aaName);
         pointsAwarded = findViewById(R.id.aaPointsAwarded);
@@ -128,6 +130,7 @@ public class AwardActivity extends AppCompatActivity {
                         asyncAddRewards(user, aData, aLoginData);
                         Intent leaderboardIntent = new Intent(AwardActivity.this, LeaderboardActivity.class);
                         leaderboardIntent.putExtra("User Login Data", aLoginData);
+                        leaderboardIntent.putExtra("Current User", currentUser);
                         startActivity(leaderboardIntent);
 
                     }
@@ -162,7 +165,7 @@ public class AwardActivity extends AppCompatActivity {
     }
 
     public void asyncAddRewards(User updatedUser, String[] aData, String[] aLoginData){
-        new RewardsAPIAsyncTask(this, updatedUser, aData, aLoginData).execute();
+        new RewardsAPIAsyncTask(this, updatedUser, aData, aLoginData, currentUser).execute();
     }
 
     public void sendResults(String result, String json) {

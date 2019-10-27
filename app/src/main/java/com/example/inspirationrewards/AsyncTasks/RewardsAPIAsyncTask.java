@@ -34,14 +34,16 @@ public class RewardsAPIAsyncTask extends AsyncTask<String, Void, String> {
     private User userToAward;
     private String[] aData;
     private String[] aLoginData;
+    private String currentUser;
 
 
-    public RewardsAPIAsyncTask(AwardActivity aa, User updatedUser, String[] aData, String[] aLoginData){
+    public RewardsAPIAsyncTask(AwardActivity aa, User updatedUser, String[] aData, String[] aLoginData, String currentUser){
 
         AwardActivity = aa;
         userToAward = updatedUser;
         this.aData = aData;
         this.aLoginData = aLoginData;
+        this.currentUser = currentUser;
     }
 
     @Override
@@ -72,7 +74,7 @@ public class RewardsAPIAsyncTask extends AsyncTask<String, Void, String> {
 
             jsonTarget.put("studentId", studentID);
             jsonTarget.put("username", userToAward.getUsername());
-            jsonTarget.put("name", userToAward.getFirstName() + " " + userToAward.getLastName());
+            jsonTarget.put("name", currentUser);
             jsonTarget.put("date", sToday);
             String sPoints = aData[0];
 

@@ -50,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView image;
     private Bitmap userBitmap;
     private String[] aLoginData = new String[2];
+    private String currentUser;
     private List<Reward> aRewards = new ArrayList<>();
     private RewardAdapter mAdapter;
     private RecyclerView recyclerView;
@@ -77,8 +78,8 @@ public class ProfileActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: " + aLoginData[1]);
         if (intent.hasExtra("User Object")) {
             user = (User)intent.getSerializableExtra("User Object");
-            String sFullName = user.getLastName() + ", " + user.getFirstName();
-            name.setText(sFullName);
+            currentUser = user.getLastName() + ", " + user.getFirstName();
+            name.setText(currentUser);
             userName.setText(user.getUsername());
             location.setText(user.getLocation());
             String sPointsAwarded = Integer.toString(user.getPointsAwarded());
@@ -154,6 +155,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if(sTitle.equals("Leaderboard")) {
                     Intent intentLeaderBoard = new Intent(ProfileActivity.this, LeaderboardActivity.class);
                     intentLeaderBoard.putExtra("User Login Data", aLoginData);
+                    intentLeaderBoard.putExtra("Current User", currentUser);
                     startActivity(intentLeaderBoard);
                 }
             default:

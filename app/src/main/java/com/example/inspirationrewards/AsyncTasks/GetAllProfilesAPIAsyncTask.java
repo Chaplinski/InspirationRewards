@@ -28,9 +28,11 @@ public class GetAllProfilesAPIAsyncTask extends AsyncTask<String, Void, String> 
     private static final String getAllProfilesEndPoint ="/allprofiles";
     private final int studentID = 20452745;
     private LeaderboardActivity LeaderboardActivity;
+    private String[] aLoginData = new String[2];
 
-    public GetAllProfilesAPIAsyncTask(LeaderboardActivity lba){
+    public GetAllProfilesAPIAsyncTask(LeaderboardActivity lba, String[] aLoginData){
         LeaderboardActivity = lba;
+        this.aLoginData = aLoginData;
     }
 
     @Override
@@ -52,8 +54,8 @@ public class GetAllProfilesAPIAsyncTask extends AsyncTask<String, Void, String> 
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("studentId", studentID);
-            jsonObject.put("username", "user2");
-            jsonObject.put("password", "pw2");
+            jsonObject.put("username", aLoginData[0]);
+            jsonObject.put("password", aLoginData[1]);
 
             return doAuth(jsonObject.toString());
 
