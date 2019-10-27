@@ -182,8 +182,19 @@ public class EditProfileActivity extends AppCompatActivity {
         updatedUser.setPosition(position.getText().toString());
         updatedUser.setStory(story.getText().toString());
         updatedUser.setLocation(location);
-        updatedUser.setImage(encodedImage);
+        Log.d(TAG, "getUpdatedUser: image - " + encodedImage);
+        if(!isNullOrEmpty(encodedImage)) {
+            updatedUser.setImage(encodedImage);
+        } else {
+            updatedUser.setImage(user.getImage());
+        }
         Log.d(TAG, "getUpdatedUser: got user");
+    }
+
+    public static boolean isNullOrEmpty(String str) {
+        if(str != null && !str.isEmpty())
+            return false;
+        return true;
     }
 
     public String getLocation(){

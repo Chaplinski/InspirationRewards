@@ -46,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView position;
     private TextView pointsToAward;
     private TextView story;
+    private TextView rewardHistory;
     private ImageView image;
     private Bitmap userBitmap;
     private String[] aLoginData = new String[2];
@@ -69,6 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
         pointsToAward = findViewById(R.id.tvPointsToAward);
         story = findViewById(R.id.tvStory);
         image = findViewById(R.id.profileImage);
+        rewardHistory = findViewById(R.id.tvRewardHistory);
         Intent intent = getIntent();
         aLoginData = intent.getStringArrayExtra("User Login Data");
         Log.d(TAG, "onCreate: " + aLoginData[0]);
@@ -80,26 +82,43 @@ public class ProfileActivity extends AppCompatActivity {
             userName.setText(user.getUsername());
             location.setText(user.getLocation());
             String sPointsAwarded = Integer.toString(user.getPointsAwarded());
-            pointsAwarded.setText(sPointsAwarded);
             department.setText(user.getDepartment());
             position.setText(user.getPosition());
             String sPointsToAward = Integer.toString(user.getPointsToAward());
             pointsToAward.setText(sPointsToAward);
             story.setText(user.getStory());
-            Bundle args = intent.getBundleExtra("BUNDLE");
-            aRewards = (ArrayList<Reward>) args.getSerializable("Rewardlist");
+            if(intent.hasExtra("BUNDLE")) {
+                Bundle args = intent.getBundleExtra("BUNDLE");
+                aRewards = (ArrayList<Reward>) args.getSerializable("Rewardlist");
 
-            recyclerView = findViewById(R.id.RewardRecycler);
-            mAdapter = new RewardAdapter(aRewards, this);
-            recyclerView.setAdapter(mAdapter);
-            mAdapter.notifyDataSetChanged();
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView = findViewById(R.id.RewardRecycler);
+                mAdapter = new RewardAdapter(aRewards, this);
+                recyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+                int count = mAdapter.getItemCount();
+                rewardHistory.setText("Reward History(" + count + "):");
+                getPointsAwarded();
+            }
+
             Log.d(TAG, "onCreate: " + aRewards.size());
 
             userBitmap = StringToBitMap(user.getImage());
             image.setImageBitmap(userBitmap);
         }
 
+    }
+
+    private void getPointsAwarded(){
+        int iTotalPoints = 0;
+        for(int i=0; i < aRewards.size(); i++){
+            Reward reward = aRewards.get(i);
+            int iPoints = reward.getRewardPoints();
+            iTotalPoints += iPoints;
+        }
+        String sPoints = Integer.toString(iTotalPoints);
+        pointsAwarded.setText(sPoints);
     }
 
     public Bitmap StringToBitMap(String encodedString){
