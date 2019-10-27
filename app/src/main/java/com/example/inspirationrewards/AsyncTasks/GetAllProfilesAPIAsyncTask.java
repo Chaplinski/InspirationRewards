@@ -53,7 +53,7 @@ public class GetAllProfilesAPIAsyncTask extends AsyncTask<String, Void, String> 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("studentId", studentID);
             jsonObject.put("username", "user2");
-            jsonObject.put("password", "password2");
+            jsonObject.put("password", "pw2");
 
             return doAuth(jsonObject.toString());
 

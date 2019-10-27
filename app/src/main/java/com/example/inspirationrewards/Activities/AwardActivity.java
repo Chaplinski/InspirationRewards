@@ -5,13 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +35,10 @@ public class AwardActivity extends AppCompatActivity {
     private TextView position;
     private TextView story;
     private TextView counter;
+    private ImageView image;
     private EditText pointsToAward;
     private EditText comment;
+    private Bitmap userBitmap;
     private String[] aLoginData = new String[2];
 
 
@@ -55,6 +61,7 @@ public class AwardActivity extends AppCompatActivity {
         comment = findViewById(R.id.aaComment);
         counter = findViewById(R.id.aaCharCounter);
         comment.addTextChangedListener(mTextEditorWatcher);
+        image = findViewById(R.id.aaImageView);
 
 
         if(intent.hasExtra("User Object")){
@@ -66,8 +73,22 @@ public class AwardActivity extends AppCompatActivity {
             position.setText(user.getPosition());
             story.setText(user.getStory());
             setTitle(user.getFirstName() + " " + user.getLastName());
+            userBitmap = StringToBitMap(user.getImage());
+            image.setImageBitmap(userBitmap);
 
 
+        }
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try{
+            byte [] encodeByte = Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }
+        catch(Exception e){
+            e.getMessage();
+            return null;
         }
     }
 

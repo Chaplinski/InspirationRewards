@@ -1,5 +1,8 @@
 package com.example.inspirationrewards.Other;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +39,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
                 .inflate(R.layout.row_leaderboard, parent, false);
 
         itemView.setOnClickListener(leadAct);
-        itemView.setOnLongClickListener(leadAct);
 
         return new UserViewHolder(itemView);
     }
@@ -50,11 +52,24 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
         String sPosition = user.getPosition() + ", " + user.getDepartment();
         String sPoints = Integer.toString(user.getPointsAwarded());
 
-        //holder.image.setImageBitmap(user.getImage());
+        Bitmap bm = StringToBitMap(user.getImage());
+        holder.image.setImageBitmap(bm);
         holder.sName.setText(sName);
         holder.sPosition.setText(sPosition);
         holder.iScore.setText(sPoints);
 
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try{
+            byte [] encodeByte = Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }
+        catch(Exception e){
+            e.getMessage();
+            return null;
+        }
     }
 
 

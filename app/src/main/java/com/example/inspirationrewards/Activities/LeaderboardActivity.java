@@ -23,8 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LeaderboardActivity extends AppCompatActivity implements View.OnClickListener,
-        View.OnLongClickListener {
+public class LeaderboardActivity extends AppCompatActivity implements View.OnClickListener {
     private String TAG = "LeaderboardActivity";
    // private User user = new User();
 
@@ -75,6 +74,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
                 user.setPosition(explrObject.getString("position"));
                 user.setPointsToAward(explrObject.getInt("pointsToAward"));
                 user.setStory(explrObject.getString("story"));
+                Log.d(TAG, "sendResults: " + explrObject.getString("imageBytes"));
                 user.setImage(explrObject.getString("imageBytes"));
                 user.setPointsAwarded(0);
                 aUsers.add(user);
@@ -112,43 +112,5 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
     }
 
-    // From OnLongClickListener
-    @Override
-    public boolean onLongClick(View v) {  // long click listener called by ViewHolder long clicks
-        Toast.makeText(this, "Long click", Toast.LENGTH_SHORT).show();
-//         use this method to delete a stock
-//        final TextView textSymbol = v.findViewById(R.id.textSymbol);
-//        final String thisSymbol = textSymbol.getText().toString();
-//        final int position = recyclerView.getChildLayoutPosition(v);
-////        Toast.makeText(this, thisSymbol, Toast.LENGTH_SHORT).show();
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//
-//        builder.setTitle("Delete Stock");
-//        builder.setMessage("Delete Stock Symbol " + thisSymbol + "?");
-//        builder.setIcon(R.drawable.trashcan);
-//
-//        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-//
-//            public void onClick(DialogInterface dialog, int which) {
-//                // Do nothing but close the dialog
-//                databaseHandler.deleteStock(thisSymbol);
-//                mAdapter.removeItem(position);
-//                aDBLoadedStocks.remove(thisSymbol);
-//                aStoredStockSymbols = getStoredStockSymbols();
-//            }
-//        });
-//
-//        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        AlertDialog alert = builder.create();
-//        alert.show();
-        return false;
 
-    }
 }

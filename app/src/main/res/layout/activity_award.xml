@@ -16,7 +16,7 @@
             android:layout_height="180dp"
             android:layout_marginStart="48dp"
             android:layout_marginTop="8dp"
-            android:scaleType="fitStart"
+            android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/aaName"
             app:srcCompat="@drawable/default_photo" />
