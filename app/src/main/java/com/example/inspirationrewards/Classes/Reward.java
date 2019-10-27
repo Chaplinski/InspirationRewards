@@ -25,9 +25,9 @@ public class Reward implements Serializable {
 
     public void setDate(String date){ sDate = date; }
 
-    public String getNotes(){ return sNotes; }
+    public String getNote(){ return sNotes; }
 
-    public void setNotes(String notes){ sNotes = notes; }
+    public void setNote(String notes){ sNotes = notes; }
 
     public int getRewardPoints(){ return iRewardPoints; }
 

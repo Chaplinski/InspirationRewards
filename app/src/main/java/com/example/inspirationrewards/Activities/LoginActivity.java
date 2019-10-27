@@ -235,7 +235,7 @@ public class LoginActivity extends AppCompatActivity {
                 reward.setDate(explrObject.getString("date"));
                 reward.setSourceName(explrObject.getString("name"));
                 reward.setRewardPoints(explrObject.getInt("value"));
-                reward.setNotes(explrObject.getString("notes"));
+                reward.setNote(explrObject.getString("notes"));
 
                 aRewards.add(reward);
 

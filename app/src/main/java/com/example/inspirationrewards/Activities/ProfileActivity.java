@@ -1,6 +1,8 @@
 package com.example.inspirationrewards.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,6 +23,8 @@ import android.widget.Toast;
 import com.example.inspirationrewards.AsyncTasks.GetAllProfilesAPIAsyncTask;
 import com.example.inspirationrewards.Classes.Reward;
 import com.example.inspirationrewards.Classes.User;
+import com.example.inspirationrewards.Other.RewardAdapter;
+import com.example.inspirationrewards.Other.UserAdapter;
 import com.example.inspirationrewards.R;
 
 import org.json.JSONArray;
@@ -46,7 +50,8 @@ public class ProfileActivity extends AppCompatActivity {
     private Bitmap userBitmap;
     private String[] aLoginData = new String[2];
     private List<Reward> aRewards = new ArrayList<>();
-
+    private RewardAdapter mAdapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,12 @@ public class ProfileActivity extends AppCompatActivity {
             story.setText(user.getStory());
             Bundle args = intent.getBundleExtra("BUNDLE");
             aRewards = (ArrayList<Reward>) args.getSerializable("Rewardlist");
+
+            recyclerView = findViewById(R.id.RewardRecycler);
+            mAdapter = new RewardAdapter(aRewards, this);
+            recyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
             Log.d(TAG, "onCreate: " + aRewards.size());
 
             userBitmap = StringToBitMap(user.getImage());
