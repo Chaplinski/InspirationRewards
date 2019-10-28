@@ -59,10 +59,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void sendResults(String result, String json) {
-//        Log.d(TAG, "sendResultsLeaderboard: " + result);
-//        Log.d(TAG, "sendResultsLeaderboard: " + json);
         try {
-//            Log.d(TAG, "sendResults: " + json);
             JSONArray jsonArray = new JSONArray(json);
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -78,7 +75,6 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
                 user.setPosition(explrObject.getString("position"));
                 user.setPointsToAward(explrObject.getInt("pointsToAward"));
                 user.setStory(explrObject.getString("story"));
-                Log.d(TAG, "sendResults: " + explrObject.getString("imageBytes"));
                 user.setImage(explrObject.getString("imageBytes"));
 
                 try {

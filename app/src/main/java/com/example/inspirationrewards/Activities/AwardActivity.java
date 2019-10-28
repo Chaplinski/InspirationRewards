@@ -130,10 +130,7 @@ public class AwardActivity extends AppCompatActivity {
                         // Do nothing but close the dialog
                         String[] aData = getData();
                         asyncAddRewards(user, aData, aLoginData);
-                        Intent leaderboardIntent = new Intent(AwardActivity.this, LeaderboardActivity.class);
-                        leaderboardIntent.putExtra("User Login Data", aLoginData);
-                        leaderboardIntent.putExtra("Current User", currentUser);
-                        startActivity(leaderboardIntent);
+
 
                     }
                 });
@@ -173,6 +170,14 @@ public class AwardActivity extends AppCompatActivity {
     public void sendResults(String result, String json) {
         Log.d(TAG, "sendResults: " + result);
         Log.d(TAG, "sendResults: " + json);
+        if(result.equals("SUCCESS")) {
+            Intent leaderboardIntent = new Intent(AwardActivity.this, LeaderboardActivity.class);
+            leaderboardIntent.putExtra("User Login Data", aLoginData);
+            leaderboardIntent.putExtra("Current User", currentUser);
+            startActivity(leaderboardIntent);
+        }else{
+            Toast.makeText(this, "Did not save", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }
