@@ -97,13 +97,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
                 }catch(JSONException e){
 
                 }
-
-
                 aUsers.add(user);
-
-
-
-
             }
             sortUserList();
             mAdapter.notifyDataSetChanged();

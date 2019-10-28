@@ -182,7 +182,8 @@ public class EditProfileActivity extends AppCompatActivity {
         updatedUser.setPosition(position.getText().toString());
         updatedUser.setStory(story.getText().toString());
         updatedUser.setLocation(location);
-        Log.d(TAG, "getUpdatedUser: image - " + encodedImage);
+        updatedUser.setRewardRecord(user.getRewardRecord());
+        Log.d(TAG, "getUpdatedUser: json array - " + encodedImage);
         if(!isNullOrEmpty(encodedImage)) {
             updatedUser.setImage(encodedImage);
         } else {

@@ -2,6 +2,8 @@ package com.example.inspirationrewards.Classes;
 
 import android.util.Base64;
 
+import org.json.JSONArray;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -18,6 +20,7 @@ public class User implements Serializable {
     private String sImage;
     private int iPointsAwarded;
     private int iPointsToAward;
+    private String rewardRecord;
     private boolean bIsAdmin;
     //possibly be adding a variable for number of points a user has been awarded so far
     // and a String for location
@@ -72,6 +75,14 @@ public class User implements Serializable {
     public int getPointsToAward(){ return iPointsToAward; }
 
     public void setPointsToAward(int points){ iPointsToAward = points; }
+
+    public String getRewardRecord(){
+        return rewardRecord;
+    }
+
+    public void setRewardRecord(String rewardRecord){
+        this.rewardRecord = rewardRecord;
+    }
 
     public boolean getAdmin(){ return bIsAdmin; }
 

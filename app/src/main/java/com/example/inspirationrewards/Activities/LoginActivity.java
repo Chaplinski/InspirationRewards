@@ -188,8 +188,6 @@ public class LoginActivity extends AppCompatActivity {
             //TODO show user profile screen
             try {
                 JSONObject jsonObject = new JSONObject(json);
-                String sRewards = jsonObject.getString("rewards");
-                processUsersRewards(sRewards);
                 user.setFirstName(jsonObject.getString("firstName"));
                 user.setLastName(jsonObject.getString("lastName"));
                 user.setUserName(jsonObject.getString("username"));
@@ -200,15 +198,13 @@ public class LoginActivity extends AppCompatActivity {
                 user.setAdmin(jsonObject.getBoolean("admin"));
                 user.setStory(jsonObject.getString("story"));
                 user.setImage(jsonObject.getString("imageBytes"));
+                user.setRewardRecord(jsonObject.getString("rewards"));
 
 
                 Intent intentProfileView = new Intent(LoginActivity.this, ProfileActivity.class);
                 intentProfileView.putExtra("User Login Data", aLoginData);
                 intentProfileView.putExtra("User Object", user);
-                Bundle args = new Bundle();
-                args.putSerializable("Rewardlist", (Serializable)aRewards);
-                intentProfileView.putExtra("BUNDLE", args);
-                startActivityForResult(intentProfileView, PASS_USER_OBJECT_REQUEST_CODE);
+                startActivity(intentProfileView);
             }catch (JSONException err){
                 Log.d("Error", err.toString());
             }
@@ -224,27 +220,5 @@ public class LoginActivity extends AppCompatActivity {
 //        }
     }
 
-    public void processUsersRewards(String sRewards){
-        try {
 
-            JSONArray jsonArray = new JSONArray(sRewards);
-            for (int i=0; i < jsonArray.length(); i++) {
-                Reward reward = new Reward();
-                JSONObject explrObject = jsonArray.getJSONObject(i);
-                Log.d(TAG, "processUsersRewards: " + explrObject);
-                reward.setDate(explrObject.getString("date"));
-                reward.setSourceName(explrObject.getString("name"));
-                reward.setRewardPoints(explrObject.getInt("value"));
-                reward.setNote(explrObject.getString("notes"));
-
-                aRewards.add(reward);
-
-            }
-            Log.d(TAG, "processUsersRewards: rewards total " + aRewards.size());
-
-
-        } catch (JSONException e){
-            Log.d(TAG, "processUsersRewards: " + e);
-        }
-    }
 }

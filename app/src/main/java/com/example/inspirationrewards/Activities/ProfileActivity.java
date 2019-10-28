@@ -88,27 +88,45 @@ public class ProfileActivity extends AppCompatActivity {
             String sPointsToAward = Integer.toString(user.getPointsToAward());
             pointsToAward.setText(sPointsToAward);
             story.setText(user.getStory());
-            if(intent.hasExtra("BUNDLE")) {
-                Bundle args = intent.getBundleExtra("BUNDLE");
-                aRewards = (ArrayList<Reward>) args.getSerializable("Rewardlist");
-
-                recyclerView = findViewById(R.id.RewardRecycler);
-                mAdapter = new RewardAdapter(aRewards, this);
-                recyclerView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-                int count = mAdapter.getItemCount();
-                rewardHistory.setText("Reward History(" + count + "):");
-                getPointsAwarded();
-            }
-
-            Log.d(TAG, "onCreate: " + aRewards.size());
-
+            processUsersRewards(user.getRewardRecord());
             userBitmap = StringToBitMap(user.getImage());
             image.setImageBitmap(userBitmap);
         }
 
+    }
+
+    public void processUsersRewards(String sRewards){
+        try {
+
+            JSONArray jsonArray = new JSONArray(sRewards);
+            for (int i=0; i < jsonArray.length(); i++) {
+                Reward reward = new Reward();
+                JSONObject explrObject = jsonArray.getJSONObject(i);
+                Log.d(TAG, "processUsersRewards: " + explrObject);
+                reward.setDate(explrObject.getString("date"));
+                reward.setSourceName(explrObject.getString("name"));
+                reward.setRewardPoints(explrObject.getInt("value"));
+                reward.setNote(explrObject.getString("notes"));
+
+                aRewards.add(reward);
+
+            }
+            Log.d(TAG, "processUsersRewards: rewards total " + aRewards.size());
+
+
+        } catch (JSONException e){
+            Log.d(TAG, "processUsersRewards: " + e);
+        }
+
+        recyclerView = findViewById(R.id.RewardRecycler);
+        mAdapter = new RewardAdapter(aRewards, this);
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        int count = mAdapter.getItemCount();
+        rewardHistory.setText("Reward History(" + count + "):");
+        getPointsAwarded();
     }
 
     private void getPointsAwarded(){
