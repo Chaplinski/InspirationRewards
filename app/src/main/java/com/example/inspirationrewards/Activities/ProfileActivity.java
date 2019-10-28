@@ -160,25 +160,28 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        String sTitle = item.getTitle().toString();
-        switch (item.getItemId()) {
-            case R.id.menuEdit:
-                if(sTitle.equals("Edit")) {
-                    Intent intentEditProfile = new Intent(ProfileActivity.this, EditProfileActivity.class);
-                    intentEditProfile.putExtra("User Object", user);
-                    intentEditProfile.putExtra("User Login Data", aLoginData);
-                    startActivity(intentEditProfile);
-                }
-            case R.id.menuViewLeaderboard:
-                if(sTitle.equals("Leaderboard")) {
-                    Intent intentLeaderBoard = new Intent(ProfileActivity.this, LeaderboardActivity.class);
-                    intentLeaderBoard.putExtra("User Login Data", aLoginData);
-                    intentLeaderBoard.putExtra("Current User", currentUser);
-                    startActivity(intentLeaderBoard);
-                }
-            default:
-                return super.onOptionsItemSelected(item);
+        if(item.getTitle() != null){
+            String sTitle = item.getTitle().toString();
+            switch (item.getItemId()) {
+                case R.id.menuEdit:
+                    if (sTitle.equals("Edit")) {
+                        Intent intentEditProfile = new Intent(ProfileActivity.this, EditProfileActivity.class);
+                        intentEditProfile.putExtra("User Object", user);
+                        intentEditProfile.putExtra("User Login Data", aLoginData);
+                        startActivity(intentEditProfile);
+                    }
+                case R.id.menuViewLeaderboard:
+                    if (sTitle.equals("Leaderboard")) {
+                        Intent intentLeaderBoard = new Intent(ProfileActivity.this, LeaderboardActivity.class);
+                        intentLeaderBoard.putExtra("User Login Data", aLoginData);
+                        intentLeaderBoard.putExtra("Current User", currentUser);
+                        startActivity(intentLeaderBoard);
+                    }
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
         }
+        return false;
     }
 
 

@@ -249,24 +249,23 @@ public class EditProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        String sTitle = item.getTitle().toString();
-        switch (item.getItemId()) {
-            case R.id.menuSave:
-                if(sTitle.equals("saveMe")) {
-                    //get updated user
-                    getUpdatedUser();
-                    //run async task updating user info
-                    asyncUpdate(updatedUser);
-                    //open user profile activity
-                }
-            case android.R.id.home:
-                if(!sTitle.equals("saveMe")) {
-                    super.onBackPressed();
-                    return true;
-                }
-            default:
-                return super.onOptionsItemSelected(item);
+        if(item.getTitle() != null) {
+            String sTitle = item.getTitle().toString();
+            switch (item.getItemId()) {
+                case R.id.menuSave:
+                    if (sTitle.equals("saveMe")) {
+                        //get updated user
+                        getUpdatedUser();
+                        //run async task updating user info
+                        asyncUpdate(updatedUser);
+                        //open user profile activity
+                    }
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
         }
+        super.onBackPressed();
+        return true;
     }
 
     public void asyncUpdate(User updatedUser){

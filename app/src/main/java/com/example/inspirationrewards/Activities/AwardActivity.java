@@ -28,6 +28,10 @@ import com.example.inspirationrewards.Classes.Reward;
 import com.example.inspirationrewards.Classes.User;
 import com.example.inspirationrewards.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class AwardActivity extends AppCompatActivity {
     private String TAG = "AwardActivity";
     private User user = new User();
@@ -132,7 +136,9 @@ public class AwardActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing but close the dialog
                         String[] aData = getData();
-                        asyncAddRewards(user, aData, aLoginData);
+//                        if(!aData[0].equals("") && !aData[0].equals("0")) {
+                            asyncAddRewards(user, aData, aLoginData);
+//                        }
 
 
                     }
@@ -160,10 +166,33 @@ public class AwardActivity extends AppCompatActivity {
 
         String sPoints = pointsToAward.getText().toString();
         String sComment = comment.getText().toString();
+        String[] aData = new String[2];
 
-        String[] aData = {sPoints, sComment};
+        Log.d(TAG, "getData: points - " + sPoints);
+        Log.d(TAG, "getData: comment - " + sComment);
+        if(doesStringHaveValue(sPoints) && doesStringHaveValue(sComment)) {
+            aData[0] = sPoints;
+            aData[1] = sComment;
+        } else if (doesStringHaveValue(sPoints)) {
+            aData[0] = sPoints;
+            aData[1] = "";
+        } else if (doesStringHaveValue(sComment)){
+            aData[0] = "0";
+            aData[1] = sComment;
+        }else {
+            aData[0] = "0";
+            aData[1] = "";
+        }
         return aData;
 
+    }
+
+    public boolean doesStringHaveValue(String string){
+        if (string != null && !string.isEmpty()) {
+            // doSomething
+            return true;
+        }
+        return false;
     }
 
     public void asyncAddRewards(User updatedUser, String[] aData, String[] aLoginData){
@@ -174,13 +203,31 @@ public class AwardActivity extends AppCompatActivity {
         Log.d(TAG, "sendResults: " + result);
         Log.d(TAG, "sendResults: " + json);
         if(result.equals("SUCCESS")) {
-            makeCustomToast(this, "Add Reward Successful", Toast.LENGTH_LONG);
+            makeCustomToast(this, json, Toast.LENGTH_LONG);
             Intent leaderboardIntent = new Intent(AwardActivity.this, LeaderboardActivity.class);
             leaderboardIntent.putExtra("User Login Data", aLoginData);
             leaderboardIntent.putExtra("Current User", currentUser);
             startActivity(leaderboardIntent);
         }else{
-            Toast.makeText(this, "Did not save", Toast.LENGTH_SHORT).show();
+            try{
+                JSONObject thisJSON = new JSONObject(json);
+                JSONObject errordetails = thisJSON.getJSONObject("errordetails");
+                String firstMessage = errordetails.getString("message");
+
+                if(firstMessage.equals("Validation error")) {
+                    JSONArray subErrors = errordetails.getJSONArray("subErrors");
+                    for (int i = 0; i < subErrors.length(); i++) {
+                        JSONObject explrObject = subErrors.getJSONObject(i);
+                        String sMessage = explrObject.getString("message");
+                        makeCustomToast(this, sMessage, Toast.LENGTH_LONG);
+                    }
+                } else {
+                    makeCustomToast(this, firstMessage, Toast.LENGTH_LONG);
+                }
+//                Log.d(TAG, "sendResults: sub " + subErrors);
+            } catch (JSONException e){
+
+            }
         }
 
     }

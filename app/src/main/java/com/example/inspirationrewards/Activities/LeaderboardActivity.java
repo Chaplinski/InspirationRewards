@@ -131,7 +131,6 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
         intentAwardActivity.putExtra("User Login Data", aLoginData);
         intentAwardActivity.putExtra("Current User", currentUser);
         startActivity(intentAwardActivity);
-        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
     }
 
 
