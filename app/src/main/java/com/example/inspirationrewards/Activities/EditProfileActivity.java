@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Criteria;
@@ -182,6 +183,7 @@ public class EditProfileActivity extends AppCompatActivity {
         updatedUser.setPosition(position.getText().toString());
         updatedUser.setStory(story.getText().toString());
         updatedUser.setLocation(location);
+        updatedUser.setPointsToAward(user.getPointsToAward());
         updatedUser.setRewardRecord(user.getRewardRecord());
         Log.d(TAG, "getUpdatedUser: json array - " + encodedImage);
         if(!isNullOrEmpty(encodedImage)) {
@@ -190,6 +192,16 @@ public class EditProfileActivity extends AppCompatActivity {
             updatedUser.setImage(user.getImage());
         }
         Log.d(TAG, "getUpdatedUser: got user");
+    }
+
+    public static void makeCustomToast(Context context, String message, int time) {
+        Toast toast = Toast.makeText(context, message, time);
+        View toastView = toast.getView();
+        toastView.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+        TextView tv = toast.getView().findViewById(android.R.id.message);
+        tv.setPadding(50, 25, 50, 25);
+        tv.setTextColor(Color.WHITE);
+        toast.show();
     }
 
     public static boolean isNullOrEmpty(String str) {
@@ -217,15 +229,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 for (Address ad : addresses) {
                     Log.d(TAG, "getLocation: in for loop");
-
-//                    String a = String.format("%s %s %s %s %s %s",
-//                            (ad.getSubThoroughfare() == null ? "" : ad.getSubThoroughfare()),
-//                            (ad.getThoroughfare() == null ? "" : ad.getThoroughfare()),
-//                            (ad.getLocality() == null ? "" : ad.getLocality()),
-//                            (ad.getAdminArea() == null ? "" : ad.getAdminArea()),
-//                            (ad.getPostalCode() == null ? "" : ad.getPostalCode()),
-//                            (ad.getCountryName() == null ? "" : ad.getCountryName()));
-
                     Log.d(TAG, "getLocation: " + ad.getLocality() + ", " + ad.getAdminArea());
                     return ad.getLocality() + ", " + ad.getAdminArea();
                 }
@@ -246,17 +249,21 @@ public class EditProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        String sTitle = item.getTitle().toString();
         switch (item.getItemId()) {
             case R.id.menuSave:
-                //get updated user
-                getUpdatedUser();
-                //run async task updating user info
-                asyncUpdate(updatedUser);
-                //open user profile activity
-
+                if(sTitle.equals("saveMe")) {
+                    //get updated user
+                    getUpdatedUser();
+                    //run async task updating user info
+                    asyncUpdate(updatedUser);
+                    //open user profile activity
+                }
             case android.R.id.home:
-                super.onBackPressed();
-                return true;
+                if(!sTitle.equals("saveMe")) {
+                    super.onBackPressed();
+                    return true;
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -276,6 +283,7 @@ public class EditProfileActivity extends AppCompatActivity {
             intentEditProfile.putExtra("User Object", updatedUser);
             intentEditProfile.putExtra("User Login Data", aLoginData);
             startActivity(intentEditProfile);
+            makeCustomToast(this, "User Update Successful", Toast.LENGTH_LONG);
         }
 
     }

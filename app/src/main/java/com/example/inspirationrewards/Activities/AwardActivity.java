@@ -3,10 +3,12 @@ package com.example.inspirationrewards.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +16,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -171,6 +174,7 @@ public class AwardActivity extends AppCompatActivity {
         Log.d(TAG, "sendResults: " + result);
         Log.d(TAG, "sendResults: " + json);
         if(result.equals("SUCCESS")) {
+            makeCustomToast(this, "Add Reward Successful", Toast.LENGTH_LONG);
             Intent leaderboardIntent = new Intent(AwardActivity.this, LeaderboardActivity.class);
             leaderboardIntent.putExtra("User Login Data", aLoginData);
             leaderboardIntent.putExtra("Current User", currentUser);
@@ -179,5 +183,15 @@ public class AwardActivity extends AppCompatActivity {
             Toast.makeText(this, "Did not save", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public static void makeCustomToast(Context context, String message, int time) {
+        Toast toast = Toast.makeText(context, message, time);
+        View toastView = toast.getView();
+        toastView.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+        TextView tv = toast.getView().findViewById(android.R.id.message);
+        tv.setPadding(50, 25, 50, 25);
+        tv.setTextColor(Color.WHITE);
+        toast.show();
     }
 }
