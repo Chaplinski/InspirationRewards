@@ -40,6 +40,10 @@ import com.example.inspirationrewards.AsyncTasks.CreateProfileAPIAsyncTask;
 import com.example.inspirationrewards.Classes.User;
 import com.example.inspirationrewards.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -404,7 +408,9 @@ public class CreateProfileActivity extends AppCompatActivity {
 //        ((TextView) findViewById(R.id.resultsText)).setText(s);
         Log.d(TAG, "sendResults: " + result);
         Log.d(TAG, "sendResults: " + json);
-        if(result.equals("SUCCESS")){
+
+
+        if(result.equals("SUCCESS")) {
             this.aLoginData[0] = aLoginData[0];
             this.aLoginData[1] = aLoginData[1];
             makeCustomToast(this, "User Create Successful", Toast.LENGTH_LONG);
@@ -412,14 +418,27 @@ public class CreateProfileActivity extends AppCompatActivity {
             profileIntent.putExtra("User Object", user);
             profileIntent.putExtra("User Login Data", this.aLoginData);
             startActivity(profileIntent);
+        }else{
+            try{
+                JSONObject thisJSON = new JSONObject(json);
+                JSONObject errordetails = thisJSON.getJSONObject("errordetails");
+                String firstMessage = errordetails.getString("message");
 
+                if(firstMessage.equals("Validation error")) {
+                    JSONArray subErrors = errordetails.getJSONArray("subErrors");
+                    for (int i = 0; i < subErrors.length(); i++) {
+                        JSONObject explrObject = subErrors.getJSONObject(i);
+                        String sMessage = explrObject.getString("message");
+                        makeCustomToast(this, sMessage, Toast.LENGTH_LONG);
+                    }
+                } else {
+                    makeCustomToast(this, firstMessage, Toast.LENGTH_LONG);
+                }
+//                Log.d(TAG, "sendResults: sub " + subErrors);
+            } catch (JSONException e){
+
+            }
         }
-
-
-//        if(s.contains("SUCCESS")) {
-//            Intent intent = new Intent(CreateProfileActivity.this, ProfileActivity.class);
-//            startActivity(intent);
-//        }
     }
 
     public static void makeCustomToast(Context context, String message, int time) {
