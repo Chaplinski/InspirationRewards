@@ -47,6 +47,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
         currentUser = intent.getStringExtra("Current User");
 
         recyclerView = findViewById(R.id.userRecycler);
+        recyclerView.setHasFixedSize(true);
         mAdapter = new UserAdapter(aUsers, this);
         recyclerView.setAdapter(mAdapter);
 

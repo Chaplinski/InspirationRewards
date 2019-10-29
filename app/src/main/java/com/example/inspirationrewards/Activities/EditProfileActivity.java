@@ -378,7 +378,7 @@ public class EditProfileActivity extends AppCompatActivity {
         imageView.setImageURI(selectedImage);
         Bitmap bm = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         imageView.setImageBitmap(bm);
-        doConvert(20);
+        doConvert(5);
         Log.d(TAG, "processCamera: converted");
 //        makeCustomToast(this,
 //                String.format(Locale.getDefault(),
@@ -401,7 +401,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
         imageView.setImageBitmap(selectedImage);
-        doConvert(20);
+        doConvert(5);
 
 //        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 //        selectedImage.compress(Bitmap.CompressFormat.PNG, 5, byteArrayOutputStream);

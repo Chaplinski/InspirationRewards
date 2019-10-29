@@ -57,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: beginning of oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon);// set drawable icon
@@ -74,9 +75,11 @@ public class ProfileActivity extends AppCompatActivity {
         rewardHistory = findViewById(R.id.tvRewardHistory);
         Intent intent = getIntent();
         aLoginData = intent.getStringArrayExtra("User Login Data");
-        Log.d(TAG, "onCreate: " + aLoginData[0]);
-        Log.d(TAG, "onCreate: " + aLoginData[1]);
+//        Log.d(TAG, "onCreate: " + aLoginData[0]);
+//        Log.d(TAG, "onCreate: " + aLoginData[1]);
+        Log.d(TAG, "onCreate: before if statement");
         if (intent.hasExtra("User Object")) {
+            Log.d(TAG, "onCreate: in log statement");
             user = (User)intent.getSerializableExtra("User Object");
             currentUser = user.getLastName() + ", " + user.getFirstName();
             name.setText(currentUser);

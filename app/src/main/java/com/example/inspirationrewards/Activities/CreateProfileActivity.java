@@ -159,6 +159,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         user.setLocation(location);
         user.setAdmin(bIsAdmin);
         user.setRewardRecord("[]");
+        user.setPointsToAward(1000);
         Log.d(TAG, "createUserObject: user created");
     }
 
@@ -287,7 +288,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         imageView.setImageURI(selectedImage);
         Bitmap bm = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         imageView.setImageBitmap(bm);
-        doConvert(20);
+        doConvert(5);
         Log.d(TAG, "processCamera: converted");
 //        makeCustomToast(this,
 //                String.format(Locale.getDefault(),
@@ -310,7 +311,7 @@ public class CreateProfileActivity extends AppCompatActivity {
 
         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
         imageView.setImageBitmap(selectedImage);
-        doConvert(20);
+        doConvert(5);
 
 //        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 //        selectedImage.compress(Bitmap.CompressFormat.PNG, 5, byteArrayOutputStream);

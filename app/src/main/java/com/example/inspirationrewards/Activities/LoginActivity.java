@@ -187,37 +187,34 @@ public class LoginActivity extends AppCompatActivity {
         if(result.equals("SUCCESS")){
             //TODO show user profile screen
             try {
-                JSONObject jsonObject = new JSONObject(json);
-                user.setFirstName(jsonObject.getString("firstName"));
-                user.setLastName(jsonObject.getString("lastName"));
-                user.setUserName(jsonObject.getString("username"));
-                user.setLocation(jsonObject.getString("location"));
-                user.setDepartment(jsonObject.getString("department"));
-                user.setPosition(jsonObject.getString("position"));
-                user.setPointsToAward(jsonObject.getInt("pointsToAward"));
-                user.setAdmin(jsonObject.getBoolean("admin"));
-                user.setStory(jsonObject.getString("story"));
-                user.setImage(jsonObject.getString("imageBytes"));
-                user.setRewardRecord(jsonObject.getString("rewards"));
-
+                Log.d(TAG, "sendResults: top of try block");
+                JSONObject jsonObject1 = new JSONObject(json);
+                String foo = jsonObject1.getString("firstName");
+                user.setFirstName(foo);
+//                user.setFirstName(jsonObject.getString("firstName"));
+                user.setLastName(jsonObject1.getString("lastName"));
+                user.setUserName(jsonObject1.getString("username"));
+                user.setLocation(jsonObject1.getString("location"));
+                user.setDepartment(jsonObject1.getString("department"));
+                user.setPosition(jsonObject1.getString("position"));
+                user.setPointsToAward(jsonObject1.getInt("pointsToAward"));
+                user.setAdmin(jsonObject1.getBoolean("admin"));
+                user.setStory(jsonObject1.getString("story"));
+                user.setImage(jsonObject1.getString("imageBytes"));
+                user.setRewardRecord(jsonObject1.getString("rewards"));
+                Log.d(TAG, "sendResults: end of user variables being set");
 
                 Intent intentProfileView = new Intent(LoginActivity.this, ProfileActivity.class);
                 intentProfileView.putExtra("User Login Data", aLoginData);
                 intentProfileView.putExtra("User Object", user);
                 startActivity(intentProfileView);
+                Log.d(TAG, "sendResults: end of try block");
             }catch (JSONException err){
                 Log.d("Error", err.toString());
             }
-            Log.d(TAG, "sendResults: " + json);
-        } else{
-
+//            Log.d(TAG, "sendResults: " + json);
         }
 
-
-//        if(s.contains("SUCCESS")) {
-//            Intent intent = new Intent(CreateProfileActivity.this, ProfileActivity.class);
-//            startActivity(intent);
-//        }
     }
 
 
