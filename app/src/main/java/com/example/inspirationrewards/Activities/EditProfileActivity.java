@@ -222,15 +222,15 @@ public class EditProfileActivity extends AppCompatActivity {
                 Geocoder geocoder = new Geocoder(this, Locale.getDefault());
                 Location currentLocation = locationManager.getLastKnownLocation(bestProvider);
 
-                double latitude = currentLocation.getLatitude();
-                double longitude = currentLocation.getLongitude();
+                if(currentLocation != null) {
+                    double latitude = currentLocation.getLatitude();
+                    double longitude = currentLocation.getLongitude();
 
-                addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                    addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
-                for (Address ad : addresses) {
-                    Log.d(TAG, "getLocation: in for loop");
-                    Log.d(TAG, "getLocation: " + ad.getLocality() + ", " + ad.getAdminArea());
-                    return ad.getLocality() + ", " + ad.getAdminArea();
+                    for (Address ad : addresses) {
+                        return ad.getLocality() + ", " + ad.getAdminArea();
+                    }
                 }
 
 
@@ -378,7 +378,7 @@ public class EditProfileActivity extends AppCompatActivity {
         imageView.setImageURI(selectedImage);
         Bitmap bm = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         imageView.setImageBitmap(bm);
-        doConvert(5);
+        doConvert(10);
         Log.d(TAG, "processCamera: converted");
 //        makeCustomToast(this,
 //                String.format(Locale.getDefault(),
@@ -401,7 +401,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
         imageView.setImageBitmap(selectedImage);
-        doConvert(5);
+        doConvert(10);
 
 //        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 //        selectedImage.compress(Bitmap.CompressFormat.PNG, 5, byteArrayOutputStream);

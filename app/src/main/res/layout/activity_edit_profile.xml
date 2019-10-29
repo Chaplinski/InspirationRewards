@@ -11,7 +11,7 @@
         android:id="@+id/cbEPIsAdmin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:buttonTint="@color/colorPrimary"
@@ -25,7 +25,7 @@
         android:id="@+id/etEPLoginPassword"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@color/colorVeryLightGray"
@@ -37,14 +37,14 @@
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.384"
-        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivEPImage"
         app:layout_constraintTop_toBottomOf="@+id/etEPUserName" />
 
     <EditText
         android:id="@+id/etEPUserName"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:background="@color/colorVeryLightGray"
@@ -55,14 +55,14 @@
         android:textColor="@android:color/black"
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivEPImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etEPFirstName"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@color/colorVeryLightGray"
@@ -74,14 +74,14 @@
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivEPImage"
         app:layout_constraintTop_toBottomOf="@+id/cbEPIsAdmin" />
 
     <EditText
         android:id="@+id/etEPLastName"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@color/colorVeryLightGray"
@@ -93,7 +93,7 @@
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivEPImage"
         app:layout_constraintTop_toBottomOf="@+id/etEPFirstName" />
 
     <EditText
