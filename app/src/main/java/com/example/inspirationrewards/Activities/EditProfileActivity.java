@@ -254,11 +254,34 @@ public class EditProfileActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.menuSave:
                     if (sTitle.equals("saveMe")) {
-                        //get updated user
-                        getUpdatedUser();
-                        //run async task updating user info
-                        asyncUpdate(updatedUser);
-                        //open user profile activity
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setTitle("Save Changes?");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                //get updated user
+                                getUpdatedUser();
+                                //run async task updating user info
+                                asyncUpdate(updatedUser);
+                                //open user profile activity
+//                        }
+
+
+                            }
+                        });
+
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Do nothing but close the dialog
+
+                            }
+                        });
+
+                        builder.setIcon(R.drawable.logo);
+                        AlertDialog alert = builder.create();
+                        alert.show();
+
                     }
                 default:
                     return super.onOptionsItemSelected(item);

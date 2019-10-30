@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
     private List<User> aUsers = new ArrayList<>();
     private String[] aLoginData = new String[2];
     private String currentUser;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +47,12 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
         Intent intent = getIntent();
         aLoginData = intent.getStringArrayExtra("User Login Data");
         currentUser = intent.getStringExtra("Current User");
-
+        String sLoggedInUser = aLoginData[0];
+        Log.d(TAG, "onCreate: " + aLoginData[0]);
+        Log.d(TAG, "onCreate: " + aLoginData[1]);
         recyclerView = findViewById(R.id.userRecycler);
         recyclerView.setHasFixedSize(true);
-        mAdapter = new UserAdapter(aUsers, this);
+        mAdapter = new UserAdapter(aUsers, this, sLoggedInUser, context);
         recyclerView.setAdapter(mAdapter);
 
         asyncGetAllProfiles();
