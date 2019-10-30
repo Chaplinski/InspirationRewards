@@ -18,8 +18,48 @@
         android:text="Administrator User"
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivREL"
         app:layout_constraintTop_toBottomOf="@+id/etCPLoginPassword" />
+
+    <RelativeLayout
+        android:id="@+id/ivREL"
+        android:layout_width="141dp"
+        android:layout_height="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivCPImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:foregroundGravity="bottom"
+            android:onClick="picClicked"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/default_photo" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="113dp"
+            android:layout_height="83dp"
+            android:layout_alignEnd="@+id/ivCPImage"
+            android:layout_alignBottom="@+id/ivCPImage"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="25dp"
+            android:foregroundGravity="top"
+            app:layout_constraintBottom_toBottomOf="@+id/ivCPImage"
+            app:layout_constraintEnd_toEndOf="@+id/ivCPImage"
+            app:layout_constraintStart_toStartOf="@+id/ivCPImage"
+            app:layout_constraintTop_toTopOf="@+id/ivCPImage"
+            app:srcCompat="@android:drawable/ic_menu_add" />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/etCPLoginPassword"
@@ -37,7 +77,7 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.384"
-        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivREL"
         app:layout_constraintTop_toBottomOf="@+id/etCPUserName" />
 
     <EditText
@@ -55,7 +95,7 @@
         android:textColorHint="@color/colorPrimary"
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivREL"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -74,7 +114,7 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivREL"
         app:layout_constraintTop_toBottomOf="@+id/cbCPIsAdmin" />
 
     <EditText
@@ -93,7 +133,7 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ivCPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivREL"
         app:layout_constraintTop_toBottomOf="@+id/etCPFirstName" />
 
     <TextView
@@ -169,17 +209,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <ImageView
-        android:id="@+id/ivCPImage"
-        android:layout_width="141dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:onClick="picClicked"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/default_photo" />
+
 
     <EditText
         android:id="@+id/etCPAboutUser"

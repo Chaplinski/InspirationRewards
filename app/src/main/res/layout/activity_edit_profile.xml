@@ -18,7 +18,7 @@
         android:text="Administrator User"
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivEPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivEPREL"
         app:layout_constraintTop_toBottomOf="@+id/etEPLoginPassword" />
 
     <EditText
@@ -37,7 +37,7 @@
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.384"
-        app:layout_constraintStart_toEndOf="@+id/ivEPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivEPREL"
         app:layout_constraintTop_toBottomOf="@+id/etEPUserName" />
 
     <EditText
@@ -55,7 +55,7 @@
         android:textColor="@android:color/black"
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivEPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivEPREL"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -74,7 +74,7 @@
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/ivEPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivEPREL"
         app:layout_constraintTop_toBottomOf="@+id/cbEPIsAdmin" />
 
     <EditText
@@ -93,7 +93,7 @@
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ivEPImage"
+        app:layout_constraintStart_toEndOf="@+id/ivEPREL"
         app:layout_constraintTop_toBottomOf="@+id/etEPFirstName" />
 
     <EditText
@@ -150,7 +150,7 @@
         android:paddingTop="8dp"
         android:paddingEnd="8dp"
         android:paddingRight="4dp"
-        android:text="“He stole my balloons!” he screamed. Nobody had an answer for that. He shook his fists up at the sky. “Why didn’t somebody tell me he had one of those things?” Still, nobody spoke. The Joker found this immensely unsatisfying. He asked for Bob’s gun and shot him. Good old Bob. That made him feel a little better."
+        android:text="“He stole my balloons!” he screamed. Nobody had an answer for that. He shook his fists up at the sky. “Why didn’t somebody tell me he had one of those things?” Still, nobody spoke. The Joker found this immensely unsatisfying."
         android:textColor="@android:color/black"
         android:textColorHint="@color/colorPrimary"
         android:textStyle="italic"
@@ -159,17 +159,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvEPyourStory" />
 
-    <ImageView
-        android:id="@+id/ivEPImage"
-        android:layout_width="141dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:scaleType="centerCrop"
-        android:onClick="picClicked"
+    <RelativeLayout
+        android:id="@+id/ivEPREL"
+        android:layout_width="168dp"
+        android:layout_height="240dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/default_photo" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivEPImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:onClick="picClicked"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/default_photo" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="113dp"
+            android:layout_height="83dp"
+            android:layout_alignEnd="@+id/ivEPImage"
+            android:layout_alignBottom="@+id/ivEPImage"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="25dp"
+            android:foregroundGravity="top"
+            app:layout_constraintBottom_toBottomOf="@+id/ivEPImage"
+            app:layout_constraintEnd_toEndOf="@+id/ivEPImage"
+            app:layout_constraintStart_toStartOf="@+id/ivEPImage"
+            app:layout_constraintTop_toTopOf="@+id/ivEPImage"
+            app:srcCompat="@android:drawable/ic_menu_add" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/textView2"

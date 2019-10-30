@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -78,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.buttonLogin);
         rememberCredentials = findViewById(R.id.cbRememberCredentials);
         loadPreferences();
+
         login.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
                 attemptLogin();
